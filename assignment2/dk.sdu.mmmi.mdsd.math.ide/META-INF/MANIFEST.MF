@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: dk.sdu.mmmi.mdsd.math.ide
+Bundle-ManifestVersion: 2
+Bundle-Name: dk.sdu.mmmi.mdsd.math.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: dk.sdu.mmmi.mdsd.math.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: dk.sdu.mmmi.mdsd.math,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: dk.sdu.mmmi.mdsd.ide.contentassist.antlr.internal,
+ dk.sdu.mmmi.mdsd.ide.contentassist.antlr
