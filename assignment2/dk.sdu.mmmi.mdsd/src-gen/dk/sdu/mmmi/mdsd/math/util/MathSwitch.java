@@ -3,14 +3,17 @@
  */
 package dk.sdu.mmmi.mdsd.math.util;
 
-import dk.sdu.mmmi.mdsd.math.Exp;
+import dk.sdu.mmmi.mdsd.math.AbstractElement;
+import dk.sdu.mmmi.mdsd.math.Atomic;
+import dk.sdu.mmmi.mdsd.math.Expression;
+import dk.sdu.mmmi.mdsd.math.LetExpression;
 import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
 import dk.sdu.mmmi.mdsd.math.Minus;
-import dk.sdu.mmmi.mdsd.math.Model;
 import dk.sdu.mmmi.mdsd.math.MulOrDiv;
 import dk.sdu.mmmi.mdsd.math.Plus;
-import dk.sdu.mmmi.mdsd.math.Primary;
+import dk.sdu.mmmi.mdsd.math.Variable;
+import dk.sdu.mmmi.mdsd.math.VariableUse;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -80,13 +83,6 @@ public class MathSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case MathPackage.MODEL:
-      {
-        Model model = (Model)theEObject;
-        T result = caseModel(model);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case MathPackage.MATH_EXP:
       {
         MathExp mathExp = (MathExp)theEObject;
@@ -94,27 +90,44 @@ public class MathSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MathPackage.EXP:
+      case MathPackage.ABSTRACT_ELEMENT:
       {
-        Exp exp = (Exp)theEObject;
-        T result = caseExp(exp);
+        AbstractElement abstractElement = (AbstractElement)theEObject;
+        T result = caseAbstractElement(abstractElement);
+        if (result == null) result = caseExpression(abstractElement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MathPackage.NUMBER:
+      case MathPackage.VARIABLE:
       {
-        dk.sdu.mmmi.mdsd.math.Number number = (dk.sdu.mmmi.mdsd.math.Number)theEObject;
-        T result = caseNumber(number);
-        if (result == null) result = casePrimary(number);
-        if (result == null) result = caseExp(number);
+        Variable variable = (Variable)theEObject;
+        T result = caseVariable(variable);
+        if (result == null) result = caseAbstractElement(variable);
+        if (result == null) result = caseExpression(variable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MathPackage.PRIMARY:
+      case MathPackage.LET_EXPRESSION:
       {
-        Primary primary = (Primary)theEObject;
-        T result = casePrimary(primary);
-        if (result == null) result = caseExp(primary);
+        LetExpression letExpression = (LetExpression)theEObject;
+        T result = caseLetExpression(letExpression);
+        if (result == null) result = caseAbstractElement(letExpression);
+        if (result == null) result = caseExpression(letExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MathPackage.EXPRESSION:
+      {
+        Expression expression = (Expression)theEObject;
+        T result = caseExpression(expression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MathPackage.ATOMIC:
+      {
+        Atomic atomic = (Atomic)theEObject;
+        T result = caseAtomic(atomic);
+        if (result == null) result = caseExpression(atomic);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -122,7 +135,7 @@ public class MathSwitch<T> extends Switch<T>
       {
         Plus plus = (Plus)theEObject;
         T result = casePlus(plus);
-        if (result == null) result = caseExp(plus);
+        if (result == null) result = caseExpression(plus);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -130,7 +143,7 @@ public class MathSwitch<T> extends Switch<T>
       {
         Minus minus = (Minus)theEObject;
         T result = caseMinus(minus);
-        if (result == null) result = caseExp(minus);
+        if (result == null) result = caseExpression(minus);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -138,28 +151,30 @@ public class MathSwitch<T> extends Switch<T>
       {
         MulOrDiv mulOrDiv = (MulOrDiv)theEObject;
         T result = caseMulOrDiv(mulOrDiv);
-        if (result == null) result = caseExp(mulOrDiv);
+        if (result == null) result = caseExpression(mulOrDiv);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MathPackage.NUMBER:
+      {
+        dk.sdu.mmmi.mdsd.math.Number number = (dk.sdu.mmmi.mdsd.math.Number)theEObject;
+        T result = caseNumber(number);
+        if (result == null) result = caseAtomic(number);
+        if (result == null) result = caseExpression(number);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MathPackage.VARIABLE_USE:
+      {
+        VariableUse variableUse = (VariableUse)theEObject;
+        T result = caseVariableUse(variableUse);
+        if (result == null) result = caseAtomic(variableUse);
+        if (result == null) result = caseExpression(variableUse);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       default: return defaultCase(theEObject);
     }
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Model</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Model</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseModel(Model object)
-  {
-    return null;
   }
 
   /**
@@ -179,49 +194,81 @@ public class MathSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Exp</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Abstract Element</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Exp</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Abstract Element</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseExp(Exp object)
+  public T caseAbstractElement(AbstractElement object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Number</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Number</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Variable</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseNumber(dk.sdu.mmmi.mdsd.math.Number object)
+  public T caseVariable(Variable object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Primary</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Let Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Primary</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Let Expression</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePrimary(Primary object)
+  public T caseLetExpression(LetExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExpression(Expression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Atomic</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Atomic</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAtomic(Atomic object)
   {
     return null;
   }
@@ -270,6 +317,38 @@ public class MathSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMulOrDiv(MulOrDiv object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Number</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Number</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNumber(dk.sdu.mmmi.mdsd.math.Number object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Use</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Use</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableUse(VariableUse object)
   {
     return null;
   }

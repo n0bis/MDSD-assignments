@@ -3,15 +3,18 @@
  */
 package dk.sdu.mmmi.mdsd.math.impl;
 
-import dk.sdu.mmmi.mdsd.math.Exp;
+import dk.sdu.mmmi.mdsd.math.AbstractElement;
+import dk.sdu.mmmi.mdsd.math.Atomic;
+import dk.sdu.mmmi.mdsd.math.Expression;
+import dk.sdu.mmmi.mdsd.math.LetExpression;
 import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.MathFactory;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
 import dk.sdu.mmmi.mdsd.math.Minus;
-import dk.sdu.mmmi.mdsd.math.Model;
 import dk.sdu.mmmi.mdsd.math.MulOrDiv;
 import dk.sdu.mmmi.mdsd.math.Plus;
-import dk.sdu.mmmi.mdsd.math.Primary;
+import dk.sdu.mmmi.mdsd.math.Variable;
+import dk.sdu.mmmi.mdsd.math.VariableUse;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -73,29 +76,20 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
   {
     switch (eClass.getClassifierID())
     {
-      case MathPackage.MODEL: return createModel();
       case MathPackage.MATH_EXP: return createMathExp();
-      case MathPackage.EXP: return createExp();
-      case MathPackage.NUMBER: return createNumber();
-      case MathPackage.PRIMARY: return createPrimary();
+      case MathPackage.ABSTRACT_ELEMENT: return createAbstractElement();
+      case MathPackage.VARIABLE: return createVariable();
+      case MathPackage.LET_EXPRESSION: return createLetExpression();
+      case MathPackage.EXPRESSION: return createExpression();
+      case MathPackage.ATOMIC: return createAtomic();
       case MathPackage.PLUS: return createPlus();
       case MathPackage.MINUS: return createMinus();
       case MathPackage.MUL_OR_DIV: return createMulOrDiv();
+      case MathPackage.NUMBER: return createNumber();
+      case MathPackage.VARIABLE_USE: return createVariableUse();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Model createModel()
-  {
-    ModelImpl model = new ModelImpl();
-    return model;
   }
 
   /**
@@ -116,10 +110,10 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
    * @generated
    */
   @Override
-  public Exp createExp()
+  public AbstractElement createAbstractElement()
   {
-    ExpImpl exp = new ExpImpl();
-    return exp;
+    AbstractElementImpl abstractElement = new AbstractElementImpl();
+    return abstractElement;
   }
 
   /**
@@ -128,10 +122,10 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
    * @generated
    */
   @Override
-  public dk.sdu.mmmi.mdsd.math.Number createNumber()
+  public Variable createVariable()
   {
-    NumberImpl number = new NumberImpl();
-    return number;
+    VariableImpl variable = new VariableImpl();
+    return variable;
   }
 
   /**
@@ -140,10 +134,34 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
    * @generated
    */
   @Override
-  public Primary createPrimary()
+  public LetExpression createLetExpression()
   {
-    PrimaryImpl primary = new PrimaryImpl();
-    return primary;
+    LetExpressionImpl letExpression = new LetExpressionImpl();
+    return letExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Expression createExpression()
+  {
+    ExpressionImpl expression = new ExpressionImpl();
+    return expression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Atomic createAtomic()
+  {
+    AtomicImpl atomic = new AtomicImpl();
+    return atomic;
   }
 
   /**
@@ -180,6 +198,30 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
   {
     MulOrDivImpl mulOrDiv = new MulOrDivImpl();
     return mulOrDiv;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public dk.sdu.mmmi.mdsd.math.Number createNumber()
+  {
+    NumberImpl number = new NumberImpl();
+    return number;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public VariableUse createVariableUse()
+  {
+    VariableUseImpl variableUse = new VariableUseImpl();
+    return variableUse;
   }
 
   /**

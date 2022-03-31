@@ -2,7 +2,7 @@ package dk.sdu.mmmi.mdsd.tests;
 
 import com.google.inject.Inject;
 import dk.sdu.mmmi.mdsd.generator.MathGenerator;
-import dk.sdu.mmmi.mdsd.math.Model;
+import dk.sdu.mmmi.mdsd.math.MathExp;
 import java.util.Map;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.InjectWith;
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class MathExampleTest {
   @Inject
   @Extension
-  private ParseHelper<Model> _parseHelper;
+  private ParseHelper<MathExp> _parseHelper;
   
   @Test
   public void mathematicalOperations() {
@@ -36,7 +36,7 @@ public class MathExampleTest {
       _builder.newLine();
       _builder.append("var e = (40 + 2) * (4 + 80)");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(40, variables.get("a"));
       Assertions.assertEquals(42, variables.get("b"));
@@ -60,7 +60,7 @@ public class MathExampleTest {
       _builder.newLine();
       _builder.append("var d = let i = 4 in  c + i end ");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(40, variables.get("a"));
       Assertions.assertEquals(80, variables.get("b"));
@@ -85,7 +85,7 @@ public class MathExampleTest {
       _builder.newLine();
       _builder.append("var b = 2");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(82, variables.get("a"));
       Assertions.assertEquals(2, variables.get("b"));

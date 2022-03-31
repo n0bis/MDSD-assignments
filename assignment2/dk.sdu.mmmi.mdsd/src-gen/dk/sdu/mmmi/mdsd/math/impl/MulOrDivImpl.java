@@ -3,10 +3,9 @@
  */
 package dk.sdu.mmmi.mdsd.math.impl;
 
-import dk.sdu.mmmi.mdsd.math.Exp;
+import dk.sdu.mmmi.mdsd.math.Expression;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
 import dk.sdu.mmmi.mdsd.math.MulOrDiv;
-import dk.sdu.mmmi.mdsd.math.Primary;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -31,7 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class MulOrDivImpl extends ExpImpl implements MulOrDiv
+public class MulOrDivImpl extends ExpressionImpl implements MulOrDiv
 {
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -41,7 +40,7 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * @generated
    * @ordered
    */
-  protected Exp left;
+  protected Expression left;
 
   /**
    * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
@@ -71,7 +70,7 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * @generated
    * @ordered
    */
-  protected Primary right;
+  protected Expression right;
 
   /**
    * <!-- begin-user-doc -->
@@ -100,7 +99,7 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * @generated
    */
   @Override
-  public Exp getLeft()
+  public Expression getLeft()
   {
     return left;
   }
@@ -110,9 +109,9 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeft(Exp newLeft, NotificationChain msgs)
+  public NotificationChain basicSetLeft(Expression newLeft, NotificationChain msgs)
   {
-    Exp oldLeft = left;
+    Expression oldLeft = left;
     left = newLeft;
     if (eNotificationRequired())
     {
@@ -128,7 +127,7 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * @generated
    */
   @Override
-  public void setLeft(Exp newLeft)
+  public void setLeft(Expression newLeft)
   {
     if (newLeft != left)
     {
@@ -175,7 +174,7 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * @generated
    */
   @Override
-  public Primary getRight()
+  public Expression getRight()
   {
     return right;
   }
@@ -185,9 +184,9 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(Primary newRight, NotificationChain msgs)
+  public NotificationChain basicSetRight(Expression newRight, NotificationChain msgs)
   {
-    Primary oldRight = right;
+    Expression oldRight = right;
     right = newRight;
     if (eNotificationRequired())
     {
@@ -203,7 +202,7 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
    * @generated
    */
   @Override
-  public void setRight(Primary newRight)
+  public void setRight(Expression newRight)
   {
     if (newRight != right)
     {
@@ -268,13 +267,13 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
     switch (featureID)
     {
       case MathPackage.MUL_OR_DIV__LEFT:
-        setLeft((Exp)newValue);
+        setLeft((Expression)newValue);
         return;
       case MathPackage.MUL_OR_DIV__OP:
         setOp((String)newValue);
         return;
       case MathPackage.MUL_OR_DIV__RIGHT:
-        setRight((Primary)newValue);
+        setRight((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -291,13 +290,13 @@ public class MulOrDivImpl extends ExpImpl implements MulOrDiv
     switch (featureID)
     {
       case MathPackage.MUL_OR_DIV__LEFT:
-        setLeft((Exp)null);
+        setLeft((Expression)null);
         return;
       case MathPackage.MUL_OR_DIV__OP:
         setOp(OP_EDEFAULT);
         return;
       case MathPackage.MUL_OR_DIV__RIGHT:
-        setRight((Primary)null);
+        setRight((Expression)null);
         return;
     }
     super.eUnset(featureID);

@@ -3,7 +3,7 @@
  */
 package dk.sdu.mmmi.mdsd.math.impl;
 
-import dk.sdu.mmmi.mdsd.math.Exp;
+import dk.sdu.mmmi.mdsd.math.Expression;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
 import dk.sdu.mmmi.mdsd.math.Plus;
 
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class PlusImpl extends ExpImpl implements Plus
+public class PlusImpl extends ExpressionImpl implements Plus
 {
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -39,7 +39,7 @@ public class PlusImpl extends ExpImpl implements Plus
    * @generated
    * @ordered
    */
-  protected Exp left;
+  protected Expression left;
 
   /**
    * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
@@ -49,7 +49,7 @@ public class PlusImpl extends ExpImpl implements Plus
    * @generated
    * @ordered
    */
-  protected Exp right;
+  protected Expression right;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,7 +78,7 @@ public class PlusImpl extends ExpImpl implements Plus
    * @generated
    */
   @Override
-  public Exp getLeft()
+  public Expression getLeft()
   {
     return left;
   }
@@ -88,9 +88,9 @@ public class PlusImpl extends ExpImpl implements Plus
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeft(Exp newLeft, NotificationChain msgs)
+  public NotificationChain basicSetLeft(Expression newLeft, NotificationChain msgs)
   {
-    Exp oldLeft = left;
+    Expression oldLeft = left;
     left = newLeft;
     if (eNotificationRequired())
     {
@@ -106,7 +106,7 @@ public class PlusImpl extends ExpImpl implements Plus
    * @generated
    */
   @Override
-  public void setLeft(Exp newLeft)
+  public void setLeft(Expression newLeft)
   {
     if (newLeft != left)
     {
@@ -128,7 +128,7 @@ public class PlusImpl extends ExpImpl implements Plus
    * @generated
    */
   @Override
-  public Exp getRight()
+  public Expression getRight()
   {
     return right;
   }
@@ -138,9 +138,9 @@ public class PlusImpl extends ExpImpl implements Plus
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(Exp newRight, NotificationChain msgs)
+  public NotificationChain basicSetRight(Expression newRight, NotificationChain msgs)
   {
-    Exp oldRight = right;
+    Expression oldRight = right;
     right = newRight;
     if (eNotificationRequired())
     {
@@ -156,7 +156,7 @@ public class PlusImpl extends ExpImpl implements Plus
    * @generated
    */
   @Override
-  public void setRight(Exp newRight)
+  public void setRight(Expression newRight)
   {
     if (newRight != right)
     {
@@ -219,10 +219,10 @@ public class PlusImpl extends ExpImpl implements Plus
     switch (featureID)
     {
       case MathPackage.PLUS__LEFT:
-        setLeft((Exp)newValue);
+        setLeft((Expression)newValue);
         return;
       case MathPackage.PLUS__RIGHT:
-        setRight((Exp)newValue);
+        setRight((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -239,10 +239,10 @@ public class PlusImpl extends ExpImpl implements Plus
     switch (featureID)
     {
       case MathPackage.PLUS__LEFT:
-        setLeft((Exp)null);
+        setLeft((Expression)null);
         return;
       case MathPackage.PLUS__RIGHT:
-        setRight((Exp)null);
+        setRight((Expression)null);
         return;
     }
     super.eUnset(featureID);

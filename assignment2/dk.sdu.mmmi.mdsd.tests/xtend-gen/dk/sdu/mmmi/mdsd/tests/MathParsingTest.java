@@ -5,7 +5,7 @@ package dk.sdu.mmmi.mdsd.tests;
 
 import com.google.inject.Inject;
 import dk.sdu.mmmi.mdsd.generator.MathGenerator;
-import dk.sdu.mmmi.mdsd.math.Model;
+import dk.sdu.mmmi.mdsd.math.MathExp;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -26,14 +26,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class MathParsingTest {
   @Inject
   @Extension
-  private ParseHelper<Model> _parseHelper;
+  private ParseHelper<MathExp> _parseHelper;
   
   @Test
   public void loadModel() {
     try {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 42");
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       Assertions.assertNotNull(result);
       final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
       boolean _isEmpty = errors.isEmpty();
@@ -53,7 +53,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 42");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
     } catch (Throwable _e) {
@@ -67,7 +67,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 40 + 2");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
     } catch (Throwable _e) {
@@ -81,7 +81,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 22 + 18 + 2");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
     } catch (Throwable _e) {
@@ -95,7 +95,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 46 - 4");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
     } catch (Throwable _e) {
@@ -109,7 +109,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 4 - 46");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals((-42), variables.get("x"));
     } catch (Throwable _e) {
@@ -123,7 +123,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 42 - 4 - 80");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals((-42), variables.get("x"));
     } catch (Throwable _e) {
@@ -137,7 +137,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 100-20+10-3");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(87, variables.get("x"));
     } catch (Throwable _e) {
@@ -151,7 +151,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 5*4");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(20, variables.get("x"));
     } catch (Throwable _e) {
@@ -165,7 +165,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 5*4*6");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(120, variables.get("x"));
     } catch (Throwable _e) {
@@ -179,7 +179,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 20/4");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(5, variables.get("x"));
     } catch (Throwable _e) {
@@ -193,7 +193,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 4 / 20");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(0, variables.get("x"));
     } catch (Throwable _e) {
@@ -207,7 +207,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 120/6/5");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(4, variables.get("x"));
     } catch (Throwable _e) {
@@ -221,7 +221,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 100*20/10*3");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(600, variables.get("x"));
     } catch (Throwable _e) {
@@ -239,7 +239,7 @@ public class MathParsingTest {
       _builder.newLine();
       _builder.append("var z = 100*20/10*3");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
       Assertions.assertEquals(87, variables.get("y"));
@@ -255,7 +255,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = (10+3)*7-4");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(87, variables.get("x"));
     } catch (Throwable _e) {
@@ -269,7 +269,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = 10+3*4-12/3+3");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(21, variables.get("x"));
     } catch (Throwable _e) {
@@ -283,7 +283,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = let y=42 in y end");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
     } catch (Throwable _e) {
@@ -297,7 +297,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = let y=10*8 in y+7 end");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(87, variables.get("x"));
     } catch (Throwable _e) {
@@ -311,7 +311,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = let y=2 in let z=3 in y*z end + y end + 79");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(87, variables.get("x"));
     } catch (Throwable _e) {
@@ -325,7 +325,7 @@ public class MathParsingTest {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("var x = let y=2 in let y=3 in y*y end + y end + 76");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(87, variables.get("x"));
     } catch (Throwable _e) {
@@ -341,7 +341,7 @@ public class MathParsingTest {
       _builder.newLine();
       _builder.append("var y = x");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
       Assertions.assertEquals(42, variables.get("y"));
@@ -358,7 +358,7 @@ public class MathParsingTest {
       _builder.newLine();
       _builder.append("var y = x * 2");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("x"));
       Assertions.assertEquals(84, variables.get("y"));
@@ -375,7 +375,7 @@ public class MathParsingTest {
       _builder.newLine();
       _builder.append("var y = let i = 2 in i*x end");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("y"));
     } catch (Throwable _e) {
@@ -391,7 +391,7 @@ public class MathParsingTest {
       _builder.newLine();
       _builder.append("var y = let i = x in i*2 end");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(42, variables.get("y"));
     } catch (Throwable _e) {
@@ -407,7 +407,7 @@ public class MathParsingTest {
       _builder.newLine();
       _builder.append("var y = let x = 21 in x*2 end");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(20, variables.get("x"));
       Assertions.assertEquals(42, variables.get("y"));
@@ -424,7 +424,7 @@ public class MathParsingTest {
       _builder.newLine();
       _builder.append("var y = let x = x in x*2 end");
       _builder.newLine();
-      final Model result = this._parseHelper.parse(_builder);
+      final MathExp result = this._parseHelper.parse(_builder);
       final Map<String, Integer> variables = MathGenerator.compute(result);
       Assertions.assertEquals(21, variables.get("x"));
       Assertions.assertEquals(42, variables.get("y"));

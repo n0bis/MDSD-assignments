@@ -24,15 +24,6 @@ public interface MathFactory extends EFactory
   MathFactory eINSTANCE = dk.sdu.mmmi.mdsd.math.impl.MathFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Model</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Model</em>'.
-   * @generated
-   */
-  Model createModel();
-
-  /**
    * Returns a new object of class '<em>Exp</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -42,31 +33,49 @@ public interface MathFactory extends EFactory
   MathExp createMathExp();
 
   /**
-   * Returns a new object of class '<em>Exp</em>'.
+   * Returns a new object of class '<em>Abstract Element</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Exp</em>'.
+   * @return a new object of class '<em>Abstract Element</em>'.
    * @generated
    */
-  Exp createExp();
+  AbstractElement createAbstractElement();
 
   /**
-   * Returns a new object of class '<em>Number</em>'.
+   * Returns a new object of class '<em>Variable</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Number</em>'.
+   * @return a new object of class '<em>Variable</em>'.
    * @generated
    */
-  Number createNumber();
+  Variable createVariable();
 
   /**
-   * Returns a new object of class '<em>Primary</em>'.
+   * Returns a new object of class '<em>Let Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Primary</em>'.
+   * @return a new object of class '<em>Let Expression</em>'.
    * @generated
    */
-  Primary createPrimary();
+  LetExpression createLetExpression();
+
+  /**
+   * Returns a new object of class '<em>Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Expression</em>'.
+   * @generated
+   */
+  Expression createExpression();
+
+  /**
+   * Returns a new object of class '<em>Atomic</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Atomic</em>'.
+   * @generated
+   */
+  Atomic createAtomic();
 
   /**
    * Returns a new object of class '<em>Plus</em>'.
@@ -94,6 +103,24 @@ public interface MathFactory extends EFactory
    * @generated
    */
   MulOrDiv createMulOrDiv();
+
+  /**
+   * Returns a new object of class '<em>Number</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Number</em>'.
+   * @generated
+   */
+  Number createNumber();
+
+  /**
+   * Returns a new object of class '<em>Variable Use</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variable Use</em>'.
+   * @generated
+   */
+  VariableUse createVariableUse();
 
   /**
    * Returns the package supported by this factory.

@@ -1,7 +1,6 @@
 package dk.sdu.mmmi.mdsd.tests
 
 import com.google.inject.Inject
-import dk.sdu.mmmi.mdsd.math.MathExp
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
@@ -10,12 +9,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 
 import static extension dk.sdu.mmmi.mdsd.generator.MathGenerator.compute
-import dk.sdu.mmmi.mdsd.math.Model
+import dk.sdu.mmmi.mdsd.math.MathExp
 
 @ExtendWith(InjectionExtension)
 @InjectWith(MathInjectorProvider)
 class MathExampleTest {
-	@Inject extension ParseHelper<Model> 
+	@Inject extension ParseHelper<MathExp> 
 	
 	@Test
 	def void mathematicalOperations() {

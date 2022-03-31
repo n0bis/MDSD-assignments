@@ -5,13 +5,16 @@ package dk.sdu.mmmi.mdsd.generator;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterators;
-import dk.sdu.mmmi.mdsd.math.Exp;
+import com.google.inject.Inject;
+import dk.sdu.mmmi.mdsd.math.Atomic;
+import dk.sdu.mmmi.mdsd.math.Expression;
+import dk.sdu.mmmi.mdsd.math.LetExpression;
 import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.Minus;
-import dk.sdu.mmmi.mdsd.math.Model;
 import dk.sdu.mmmi.mdsd.math.MulOrDiv;
 import dk.sdu.mmmi.mdsd.math.Plus;
-import dk.sdu.mmmi.mdsd.math.Primary;
+import dk.sdu.mmmi.mdsd.math.Variable;
+import dk.sdu.mmmi.mdsd.math.VariableUse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.util.IResourceScopeCache;
 
 /**
  * Generates code from your model files on save.
@@ -29,31 +33,28 @@ import org.eclipse.xtext.generator.IGeneratorContext;
  */
 @SuppressWarnings("all")
 public class MathGenerator extends AbstractGenerator {
+  @Inject
+  private static IResourceScopeCache cache;
+  
   private static Map<String, Integer> variables = new HashMap<String, Integer>();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    final Model model = Iterators.<Model>filter(resource.getAllContents(), Model.class).next();
+    final MathExp model = Iterators.<MathExp>filter(resource.getAllContents(), MathExp.class).next();
     final Map<String, Integer> result = MathGenerator.compute(model);
     this.displayPanel(result);
   }
   
-  public static Map<String, Integer> compute(final Model model) {
-    EList<MathExp> _math = model.getMath();
-    for (final MathExp variable : _math) {
-      MathGenerator.variables.put(variable.getName(), Integer.valueOf(MathGenerator.computeExp(variable.getExp())));
+  public static Map<String, Integer> compute(final MathExp model) {
+    EList<Variable> _elements = model.getElements();
+    for (final Variable variable : _elements) {
+      MathGenerator.variables.put(variable.getName(), Integer.valueOf(MathGenerator.computeExp(variable.getExpression())));
     }
     return MathGenerator.variables;
   }
   
-  /**
-   * def static compute(MathExp e) {
-   * variables.put(e.name, e.exp.computeExp)
-   * return variables
-   * }
-   */
-  public static int computeExp(final Exp e) {
-    int _switchResult = (int) 0;
+  public static int computeExp(final Expression e) {
+    Integer _switchResult = null;
     boolean _matched = false;
     if (e instanceof MulOrDiv) {
       _matched=true;
@@ -73,14 +74,14 @@ public class MathGenerator extends AbstractGenerator {
         }
         _xblockexpression = _xifexpression;
       }
-      _switchResult = _xblockexpression;
+      _switchResult = Integer.valueOf(_xblockexpression);
     }
     if (!_matched) {
       if (e instanceof Minus) {
         _matched=true;
         int _computeExp = MathGenerator.computeExp(((Minus)e).getLeft());
         int _computeExp_1 = MathGenerator.computeExp(((Minus)e).getRight());
-        _switchResult = ((((Integer) Integer.valueOf(_computeExp))).intValue() - (((Integer) Integer.valueOf(_computeExp_1))).intValue());
+        _switchResult = Integer.valueOf(((((Integer) Integer.valueOf(_computeExp))).intValue() - (((Integer) Integer.valueOf(_computeExp_1))).intValue()));
       }
     }
     if (!_matched) {
@@ -88,36 +89,42 @@ public class MathGenerator extends AbstractGenerator {
         _matched=true;
         int _computeExp = MathGenerator.computeExp(((Plus)e).getLeft());
         int _computeExp_1 = MathGenerator.computeExp(((Plus)e).getRight());
-        _switchResult = ((((Integer) Integer.valueOf(_computeExp))).intValue() + (((Integer) Integer.valueOf(_computeExp_1))).intValue());
+        _switchResult = Integer.valueOf(((((Integer) Integer.valueOf(_computeExp))).intValue() + (((Integer) Integer.valueOf(_computeExp_1))).intValue()));
       }
     }
     if (!_matched) {
-      if (e instanceof dk.sdu.mmmi.mdsd.math.Number) {
+      if (e instanceof LetExpression) {
         _matched=true;
-        _switchResult = ((dk.sdu.mmmi.mdsd.math.Number)e).getValue();
+        int _xblockexpression = (int) 0;
+        {
+          MathGenerator.variables.put(((LetExpression)e).getName(), Integer.valueOf(MathGenerator.computeExp(((LetExpression)e).getVariable())));
+          _xblockexpression = MathGenerator.computeExp(((LetExpression)e).getExpression());
+        }
+        _switchResult = Integer.valueOf(_xblockexpression);
       }
     }
     if (!_matched) {
-      if (e instanceof Primary) {
+      if (e instanceof Atomic) {
         _matched=true;
-        int _switchResult_1 = (int) 0;
-        Exp _exp = ((Primary)e).getExp();
+        Integer _switchResult_1 = null;
         boolean _matched_1 = false;
-        if (_exp instanceof dk.sdu.mmmi.mdsd.math.Number) {
+        if (e instanceof VariableUse) {
           _matched_1=true;
-          Exp _exp_1 = ((Primary)e).getExp();
-          _switchResult_1 = ((dk.sdu.mmmi.mdsd.math.Number) _exp_1).getValue();
+          _switchResult_1 = MathGenerator.variables.get(((VariableUse)e).getVariableUse().getName());
         }
         if (!_matched_1) {
-          _switchResult_1 = MathGenerator.computeExp(((Primary)e).getExp());
+          if (e instanceof dk.sdu.mmmi.mdsd.math.Number) {
+            _matched_1=true;
+            _switchResult_1 = Integer.valueOf(((dk.sdu.mmmi.mdsd.math.Number)e).getValue());
+          }
         }
         _switchResult = _switchResult_1;
       }
     }
     if (!_matched) {
-      _switchResult = ((dk.sdu.mmmi.mdsd.math.Number) e).getValue();
+      _switchResult = Integer.valueOf(MathGenerator.computeExp(((Variable) e).getExpression()));
     }
-    return _switchResult;
+    return (_switchResult).intValue();
   }
   
   public void displayPanel(final Map<String, Integer> result) {

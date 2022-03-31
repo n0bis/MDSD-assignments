@@ -22,19 +22,19 @@ package dk.sdu.mmmi.mdsd.math;
  * @model
  * @generated
  */
-public interface MulOrDiv extends Exp
+public interface MulOrDiv extends Expression
 {
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Left</em>' containment reference.
-   * @see #setLeft(Exp)
+   * @see #setLeft(Expression)
    * @see dk.sdu.mmmi.mdsd.math.MathPackage#getMulOrDiv_Left()
    * @model containment="true"
    * @generated
    */
-  Exp getLeft();
+  Expression getLeft();
 
   /**
    * Sets the value of the '{@link dk.sdu.mmmi.mdsd.math.MulOrDiv#getLeft <em>Left</em>}' containment reference.
@@ -44,7 +44,7 @@ public interface MulOrDiv extends Exp
    * @see #getLeft()
    * @generated
    */
-  void setLeft(Exp value);
+  void setLeft(Expression value);
 
   /**
    * Returns the value of the '<em><b>Op</b></em>' attribute.
@@ -73,12 +73,12 @@ public interface MulOrDiv extends Exp
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Right</em>' containment reference.
-   * @see #setRight(Primary)
+   * @see #setRight(Expression)
    * @see dk.sdu.mmmi.mdsd.math.MathPackage#getMulOrDiv_Right()
    * @model containment="true"
    * @generated
    */
-  Primary getRight();
+  Expression getRight();
 
   /**
    * Sets the value of the '{@link dk.sdu.mmmi.mdsd.math.MulOrDiv#getRight <em>Right</em>}' containment reference.
@@ -88,6 +88,6 @@ public interface MulOrDiv extends Exp
    * @see #getRight()
    * @generated
    */
-  void setRight(Primary value);
+  void setRight(Expression value);
 
 } // MulOrDiv

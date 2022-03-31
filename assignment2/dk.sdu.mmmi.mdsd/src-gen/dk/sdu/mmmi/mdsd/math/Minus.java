@@ -21,19 +21,19 @@ package dk.sdu.mmmi.mdsd.math;
  * @model
  * @generated
  */
-public interface Minus extends Exp
+public interface Minus extends Expression
 {
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Left</em>' containment reference.
-   * @see #setLeft(Exp)
+   * @see #setLeft(Expression)
    * @see dk.sdu.mmmi.mdsd.math.MathPackage#getMinus_Left()
    * @model containment="true"
    * @generated
    */
-  Exp getLeft();
+  Expression getLeft();
 
   /**
    * Sets the value of the '{@link dk.sdu.mmmi.mdsd.math.Minus#getLeft <em>Left</em>}' containment reference.
@@ -43,19 +43,19 @@ public interface Minus extends Exp
    * @see #getLeft()
    * @generated
    */
-  void setLeft(Exp value);
+  void setLeft(Expression value);
 
   /**
    * Returns the value of the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Right</em>' containment reference.
-   * @see #setRight(Exp)
+   * @see #setRight(Expression)
    * @see dk.sdu.mmmi.mdsd.math.MathPackage#getMinus_Right()
    * @model containment="true"
    * @generated
    */
-  Exp getRight();
+  Expression getRight();
 
   /**
    * Sets the value of the '{@link dk.sdu.mmmi.mdsd.math.Minus#getRight <em>Right</em>}' containment reference.
@@ -65,6 +65,6 @@ public interface Minus extends Exp
    * @see #getRight()
    * @generated
    */
-  void setRight(Exp value);
+  void setRight(Expression value);
 
 } // Minus

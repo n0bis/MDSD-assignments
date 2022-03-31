@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class NumberImpl extends PrimaryImpl implements dk.sdu.mmmi.mdsd.math.Number
+public class NumberImpl extends AtomicImpl implements dk.sdu.mmmi.mdsd.math.Number
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.

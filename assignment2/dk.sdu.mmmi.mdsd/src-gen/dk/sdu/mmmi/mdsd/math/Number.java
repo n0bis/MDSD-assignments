@@ -20,7 +20,7 @@ package dk.sdu.mmmi.mdsd.math;
  * @model
  * @generated
  */
-public interface Number extends Primary
+public interface Number extends Atomic
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

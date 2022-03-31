@@ -3,15 +3,18 @@
  */
 package dk.sdu.mmmi.mdsd.math.impl;
 
-import dk.sdu.mmmi.mdsd.math.Exp;
+import dk.sdu.mmmi.mdsd.math.AbstractElement;
+import dk.sdu.mmmi.mdsd.math.Atomic;
+import dk.sdu.mmmi.mdsd.math.Expression;
+import dk.sdu.mmmi.mdsd.math.LetExpression;
 import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.MathFactory;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
 import dk.sdu.mmmi.mdsd.math.Minus;
-import dk.sdu.mmmi.mdsd.math.Model;
 import dk.sdu.mmmi.mdsd.math.MulOrDiv;
 import dk.sdu.mmmi.mdsd.math.Plus;
-import dk.sdu.mmmi.mdsd.math.Primary;
+import dk.sdu.mmmi.mdsd.math.Variable;
+import dk.sdu.mmmi.mdsd.math.VariableUse;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -33,13 +36,6 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass modelEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass mathExpEClass = null;
 
   /**
@@ -47,21 +43,35 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass expEClass = null;
+  private EClass abstractElementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass numberEClass = null;
+  private EClass variableEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass primaryEClass = null;
+  private EClass letExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass expressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass atomicEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -83,6 +93,20 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   private EClass mulOrDivEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass numberEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variableUseEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -153,28 +177,6 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EClass getModel()
-  {
-    return modelEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getModel_Math()
-  {
-    return (EReference)modelEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getMathExp()
   {
     return mathExpEClass;
@@ -186,9 +188,9 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EAttribute getMathExp_Name()
+  public EReference getMathExp_Elements()
   {
-    return (EAttribute)mathExpEClass.getEStructuralFeatures().get(0);
+    return (EReference)mathExpEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -197,9 +199,9 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EReference getMathExp_Exp()
+  public EClass getAbstractElement()
   {
-    return (EReference)mathExpEClass.getEStructuralFeatures().get(1);
+    return abstractElementEClass;
   }
 
   /**
@@ -208,9 +210,9 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EClass getExp()
+  public EAttribute getAbstractElement_Name()
   {
-    return expEClass;
+    return (EAttribute)abstractElementEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -219,9 +221,9 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EClass getNumber()
+  public EReference getAbstractElement_Expression()
   {
-    return numberEClass;
+    return (EReference)abstractElementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -230,9 +232,9 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EAttribute getNumber_Value()
+  public EClass getVariable()
   {
-    return (EAttribute)numberEClass.getEStructuralFeatures().get(0);
+    return variableEClass;
   }
 
   /**
@@ -241,9 +243,9 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EClass getPrimary()
+  public EClass getLetExpression()
   {
-    return primaryEClass;
+    return letExpressionEClass;
   }
 
   /**
@@ -252,9 +254,31 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
-  public EReference getPrimary_Exp()
+  public EReference getLetExpression_Variable()
   {
-    return (EReference)primaryEClass.getEStructuralFeatures().get(0);
+    return (EReference)letExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getExpression()
+  {
+    return expressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getAtomic()
+  {
+    return atomicEClass;
   }
 
   /**
@@ -373,6 +397,50 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
    * @generated
    */
   @Override
+  public EClass getNumber()
+  {
+    return numberEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getNumber_Value()
+  {
+    return (EAttribute)numberEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getVariableUse()
+  {
+    return variableUseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getVariableUse_VariableUse()
+  {
+    return (EReference)variableUseEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public MathFactory getMathFactory()
   {
     return (MathFactory)getEFactoryInstance();
@@ -398,20 +466,21 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
     isCreated = true;
 
     // Create classes and their features
-    modelEClass = createEClass(MODEL);
-    createEReference(modelEClass, MODEL__MATH);
-
     mathExpEClass = createEClass(MATH_EXP);
-    createEAttribute(mathExpEClass, MATH_EXP__NAME);
-    createEReference(mathExpEClass, MATH_EXP__EXP);
+    createEReference(mathExpEClass, MATH_EXP__ELEMENTS);
 
-    expEClass = createEClass(EXP);
+    abstractElementEClass = createEClass(ABSTRACT_ELEMENT);
+    createEAttribute(abstractElementEClass, ABSTRACT_ELEMENT__NAME);
+    createEReference(abstractElementEClass, ABSTRACT_ELEMENT__EXPRESSION);
 
-    numberEClass = createEClass(NUMBER);
-    createEAttribute(numberEClass, NUMBER__VALUE);
+    variableEClass = createEClass(VARIABLE);
 
-    primaryEClass = createEClass(PRIMARY);
-    createEReference(primaryEClass, PRIMARY__EXP);
+    letExpressionEClass = createEClass(LET_EXPRESSION);
+    createEReference(letExpressionEClass, LET_EXPRESSION__VARIABLE);
+
+    expressionEClass = createEClass(EXPRESSION);
+
+    atomicEClass = createEClass(ATOMIC);
 
     plusEClass = createEClass(PLUS);
     createEReference(plusEClass, PLUS__LEFT);
@@ -425,6 +494,12 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
     createEReference(mulOrDivEClass, MUL_OR_DIV__LEFT);
     createEAttribute(mulOrDivEClass, MUL_OR_DIV__OP);
     createEReference(mulOrDivEClass, MUL_OR_DIV__RIGHT);
+
+    numberEClass = createEClass(NUMBER);
+    createEAttribute(numberEClass, NUMBER__VALUE);
+
+    variableUseEClass = createEClass(VARIABLE_USE);
+    createEReference(variableUseEClass, VARIABLE_USE__VARIABLE_USE);
   }
 
   /**
@@ -456,40 +531,51 @@ public class MathPackageImpl extends EPackageImpl implements MathPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    numberEClass.getESuperTypes().add(this.getPrimary());
-    primaryEClass.getESuperTypes().add(this.getExp());
-    plusEClass.getESuperTypes().add(this.getExp());
-    minusEClass.getESuperTypes().add(this.getExp());
-    mulOrDivEClass.getESuperTypes().add(this.getExp());
+    abstractElementEClass.getESuperTypes().add(this.getExpression());
+    variableEClass.getESuperTypes().add(this.getAbstractElement());
+    letExpressionEClass.getESuperTypes().add(this.getAbstractElement());
+    atomicEClass.getESuperTypes().add(this.getExpression());
+    plusEClass.getESuperTypes().add(this.getExpression());
+    minusEClass.getESuperTypes().add(this.getExpression());
+    mulOrDivEClass.getESuperTypes().add(this.getExpression());
+    numberEClass.getESuperTypes().add(this.getAtomic());
+    variableUseEClass.getESuperTypes().add(this.getAtomic());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getModel_Math(), this.getMathExp(), null, "math", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(mathExpEClass, MathExp.class, "MathExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getMathExp_Name(), ecorePackage.getEString(), "name", null, 0, 1, MathExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMathExp_Exp(), this.getExp(), null, "exp", null, 0, 1, MathExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMathExp_Elements(), this.getVariable(), null, "elements", null, 0, -1, MathExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(expEClass, Exp.class, "Exp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(abstractElementEClass, AbstractElement.class, "AbstractElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAbstractElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, AbstractElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAbstractElement_Expression(), this.getExpression(), null, "expression", null, 0, 1, AbstractElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(letExpressionEClass, LetExpression.class, "LetExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getLetExpression_Variable(), this.getExpression(), null, "variable", null, 0, 1, LetExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(atomicEClass, Atomic.class, "Atomic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPlus_Left(), this.getExpression(), null, "left", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPlus_Right(), this.getExpression(), null, "right", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(minusEClass, Minus.class, "Minus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMinus_Left(), this.getExpression(), null, "left", null, 0, 1, Minus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMinus_Right(), this.getExpression(), null, "right", null, 0, 1, Minus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(mulOrDivEClass, MulOrDiv.class, "MulOrDiv", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMulOrDiv_Left(), this.getExpression(), null, "left", null, 0, 1, MulOrDiv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMulOrDiv_Op(), ecorePackage.getEString(), "op", null, 0, 1, MulOrDiv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMulOrDiv_Right(), this.getExpression(), null, "right", null, 0, 1, MulOrDiv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(numberEClass, dk.sdu.mmmi.mdsd.math.Number.class, "Number", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNumber_Value(), ecorePackage.getEInt(), "value", null, 0, 1, dk.sdu.mmmi.mdsd.math.Number.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(primaryEClass, Primary.class, "Primary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPrimary_Exp(), this.getExp(), null, "exp", null, 0, 1, Primary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPlus_Left(), this.getExp(), null, "left", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPlus_Right(), this.getExp(), null, "right", null, 0, 1, Plus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(minusEClass, Minus.class, "Minus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMinus_Left(), this.getExp(), null, "left", null, 0, 1, Minus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMinus_Right(), this.getExp(), null, "right", null, 0, 1, Minus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(mulOrDivEClass, MulOrDiv.class, "MulOrDiv", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMulOrDiv_Left(), this.getExp(), null, "left", null, 0, 1, MulOrDiv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getMulOrDiv_Op(), ecorePackage.getEString(), "op", null, 0, 1, MulOrDiv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMulOrDiv_Right(), this.getPrimary(), null, "right", null, 0, 1, MulOrDiv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(variableUseEClass, VariableUse.class, "VariableUse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getVariableUse_VariableUse(), this.getAbstractElement(), null, "variableUse", null, 0, 1, VariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

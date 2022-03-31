@@ -3,14 +3,17 @@
  */
 package dk.sdu.mmmi.mdsd.math.util;
 
-import dk.sdu.mmmi.mdsd.math.Exp;
+import dk.sdu.mmmi.mdsd.math.AbstractElement;
+import dk.sdu.mmmi.mdsd.math.Atomic;
+import dk.sdu.mmmi.mdsd.math.Expression;
+import dk.sdu.mmmi.mdsd.math.LetExpression;
 import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
 import dk.sdu.mmmi.mdsd.math.Minus;
-import dk.sdu.mmmi.mdsd.math.Model;
 import dk.sdu.mmmi.mdsd.math.MulOrDiv;
 import dk.sdu.mmmi.mdsd.math.Plus;
-import dk.sdu.mmmi.mdsd.math.Primary;
+import dk.sdu.mmmi.mdsd.math.Variable;
+import dk.sdu.mmmi.mdsd.math.VariableUse;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -83,29 +86,34 @@ public class MathAdapterFactory extends AdapterFactoryImpl
     new MathSwitch<Adapter>()
     {
       @Override
-      public Adapter caseModel(Model object)
-      {
-        return createModelAdapter();
-      }
-      @Override
       public Adapter caseMathExp(MathExp object)
       {
         return createMathExpAdapter();
       }
       @Override
-      public Adapter caseExp(Exp object)
+      public Adapter caseAbstractElement(AbstractElement object)
       {
-        return createExpAdapter();
+        return createAbstractElementAdapter();
       }
       @Override
-      public Adapter caseNumber(dk.sdu.mmmi.mdsd.math.Number object)
+      public Adapter caseVariable(Variable object)
       {
-        return createNumberAdapter();
+        return createVariableAdapter();
       }
       @Override
-      public Adapter casePrimary(Primary object)
+      public Adapter caseLetExpression(LetExpression object)
       {
-        return createPrimaryAdapter();
+        return createLetExpressionAdapter();
+      }
+      @Override
+      public Adapter caseExpression(Expression object)
+      {
+        return createExpressionAdapter();
+      }
+      @Override
+      public Adapter caseAtomic(Atomic object)
+      {
+        return createAtomicAdapter();
       }
       @Override
       public Adapter casePlus(Plus object)
@@ -121,6 +129,16 @@ public class MathAdapterFactory extends AdapterFactoryImpl
       public Adapter caseMulOrDiv(MulOrDiv object)
       {
         return createMulOrDivAdapter();
+      }
+      @Override
+      public Adapter caseNumber(dk.sdu.mmmi.mdsd.math.Number object)
+      {
+        return createNumberAdapter();
+      }
+      @Override
+      public Adapter caseVariableUse(VariableUse object)
+      {
+        return createVariableUseAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -145,21 +163,6 @@ public class MathAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Model <em>Model</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see dk.sdu.mmmi.mdsd.math.Model
-   * @generated
-   */
-  public Adapter createModelAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.MathExp <em>Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -175,46 +178,76 @@ public class MathAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Exp <em>Exp</em>}'.
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.AbstractElement <em>Abstract Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see dk.sdu.mmmi.mdsd.math.Exp
+   * @see dk.sdu.mmmi.mdsd.math.AbstractElement
    * @generated
    */
-  public Adapter createExpAdapter()
+  public Adapter createAbstractElementAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Number <em>Number</em>}'.
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Variable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see dk.sdu.mmmi.mdsd.math.Number
+   * @see dk.sdu.mmmi.mdsd.math.Variable
    * @generated
    */
-  public Adapter createNumberAdapter()
+  public Adapter createVariableAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Primary <em>Primary</em>}'.
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.LetExpression <em>Let Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see dk.sdu.mmmi.mdsd.math.Primary
+   * @see dk.sdu.mmmi.mdsd.math.LetExpression
    * @generated
    */
-  public Adapter createPrimaryAdapter()
+  public Adapter createLetExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Expression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see dk.sdu.mmmi.mdsd.math.Expression
+   * @generated
+   */
+  public Adapter createExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Atomic <em>Atomic</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see dk.sdu.mmmi.mdsd.math.Atomic
+   * @generated
+   */
+  public Adapter createAtomicAdapter()
   {
     return null;
   }
@@ -260,6 +293,36 @@ public class MathAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMulOrDivAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Number <em>Number</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see dk.sdu.mmmi.mdsd.math.Number
+   * @generated
+   */
+  public Adapter createNumberAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.VariableUse <em>Variable Use</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see dk.sdu.mmmi.mdsd.math.VariableUse
+   * @generated
+   */
+  public Adapter createVariableUseAdapter()
   {
     return null;
   }

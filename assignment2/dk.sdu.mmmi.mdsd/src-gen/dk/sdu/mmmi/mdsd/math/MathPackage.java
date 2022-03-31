@@ -58,34 +58,6 @@ public interface MathPackage extends EPackage
   MathPackage eINSTANCE = dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl.init();
 
   /**
-   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.ModelImpl <em>Model</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see dk.sdu.mmmi.mdsd.math.impl.ModelImpl
-   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getModel()
-   * @generated
-   */
-  int MODEL = 0;
-
-  /**
-   * The feature id for the '<em><b>Math</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODEL__MATH = 0;
-
-  /**
-   * The number of structural features of the '<em>Model</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODEL_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.MathExpImpl <em>Exp</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -93,7 +65,54 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getMathExp()
    * @generated
    */
-  int MATH_EXP = 1;
+  int MATH_EXP = 0;
+
+  /**
+   * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MATH_EXP__ELEMENTS = 0;
+
+  /**
+   * The number of structural features of the '<em>Exp</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MATH_EXP_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.ExpressionImpl <em>Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see dk.sdu.mmmi.mdsd.math.impl.ExpressionImpl
+   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getExpression()
+   * @generated
+   */
+  int EXPRESSION = 4;
+
+  /**
+   * The number of structural features of the '<em>Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.AbstractElementImpl <em>Abstract Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see dk.sdu.mmmi.mdsd.math.impl.AbstractElementImpl
+   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getAbstractElement()
+   * @generated
+   */
+  int ABSTRACT_ELEMENT = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -102,109 +121,127 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MATH_EXP__NAME = 0;
+  int ABSTRACT_ELEMENT__NAME = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MATH_EXP__EXP = 1;
+  int ABSTRACT_ELEMENT__EXPRESSION = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Exp</em>' class.
+   * The number of structural features of the '<em>Abstract Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MATH_EXP_FEATURE_COUNT = 2;
+  int ABSTRACT_ELEMENT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.ExpImpl <em>Exp</em>}' class.
+   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.VariableImpl <em>Variable</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see dk.sdu.mmmi.mdsd.math.impl.ExpImpl
-   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getExp()
+   * @see dk.sdu.mmmi.mdsd.math.impl.VariableImpl
+   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getVariable()
    * @generated
    */
-  int EXP = 2;
+  int VARIABLE = 2;
 
   /**
-   * The number of structural features of the '<em>Exp</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXP_FEATURE_COUNT = 0;
-
-  /**
-   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.PrimaryImpl <em>Primary</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see dk.sdu.mmmi.mdsd.math.impl.PrimaryImpl
-   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getPrimary()
-   * @generated
-   */
-  int PRIMARY = 4;
-
-  /**
-   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRIMARY__EXP = EXP_FEATURE_COUNT + 0;
+  int VARIABLE__NAME = ABSTRACT_ELEMENT__NAME;
 
   /**
-   * The number of structural features of the '<em>Primary</em>' class.
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRIMARY_FEATURE_COUNT = EXP_FEATURE_COUNT + 1;
+  int VARIABLE__EXPRESSION = ABSTRACT_ELEMENT__EXPRESSION;
 
   /**
-   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.NumberImpl <em>Number</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see dk.sdu.mmmi.mdsd.math.impl.NumberImpl
-   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getNumber()
-   * @generated
-   */
-  int NUMBER = 3;
-
-  /**
-   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * The number of structural features of the '<em>Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NUMBER__EXP = PRIMARY__EXP;
+  int VARIABLE_FEATURE_COUNT = ABSTRACT_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.LetExpressionImpl <em>Let Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see dk.sdu.mmmi.mdsd.math.impl.LetExpressionImpl
+   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getLetExpression()
+   * @generated
+   */
+  int LET_EXPRESSION = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NUMBER__VALUE = PRIMARY_FEATURE_COUNT + 0;
+  int LET_EXPRESSION__NAME = ABSTRACT_ELEMENT__NAME;
 
   /**
-   * The number of structural features of the '<em>Number</em>' class.
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NUMBER_FEATURE_COUNT = PRIMARY_FEATURE_COUNT + 1;
+  int LET_EXPRESSION__EXPRESSION = ABSTRACT_ELEMENT__EXPRESSION;
+
+  /**
+   * The feature id for the '<em><b>Variable</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__VARIABLE = ABSTRACT_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Let Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION_FEATURE_COUNT = ABSTRACT_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.AtomicImpl <em>Atomic</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see dk.sdu.mmmi.mdsd.math.impl.AtomicImpl
+   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getAtomic()
+   * @generated
+   */
+  int ATOMIC = 5;
+
+  /**
+   * The number of structural features of the '<em>Atomic</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATOMIC_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.PlusImpl <em>Plus</em>}' class.
@@ -214,7 +251,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getPlus()
    * @generated
    */
-  int PLUS = 5;
+  int PLUS = 6;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -223,7 +260,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUS__LEFT = EXP_FEATURE_COUNT + 0;
+  int PLUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -232,7 +269,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUS__RIGHT = EXP_FEATURE_COUNT + 1;
+  int PLUS__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Plus</em>' class.
@@ -241,7 +278,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PLUS_FEATURE_COUNT = EXP_FEATURE_COUNT + 2;
+  int PLUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.MinusImpl <em>Minus</em>}' class.
@@ -251,7 +288,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getMinus()
    * @generated
    */
-  int MINUS = 6;
+  int MINUS = 7;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -260,7 +297,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MINUS__LEFT = EXP_FEATURE_COUNT + 0;
+  int MINUS__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -269,7 +306,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MINUS__RIGHT = EXP_FEATURE_COUNT + 1;
+  int MINUS__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Minus</em>' class.
@@ -278,7 +315,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MINUS_FEATURE_COUNT = EXP_FEATURE_COUNT + 2;
+  int MINUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.MulOrDivImpl <em>Mul Or Div</em>}' class.
@@ -288,7 +325,7 @@ public interface MathPackage extends EPackage
    * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getMulOrDiv()
    * @generated
    */
-  int MUL_OR_DIV = 7;
+  int MUL_OR_DIV = 8;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -297,7 +334,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MUL_OR_DIV__LEFT = EXP_FEATURE_COUNT + 0;
+  int MUL_OR_DIV__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -306,7 +343,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MUL_OR_DIV__OP = EXP_FEATURE_COUNT + 1;
+  int MUL_OR_DIV__OP = EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -315,7 +352,7 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MUL_OR_DIV__RIGHT = EXP_FEATURE_COUNT + 2;
+  int MUL_OR_DIV__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Mul Or Div</em>' class.
@@ -324,29 +361,64 @@ public interface MathPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MUL_OR_DIV_FEATURE_COUNT = EXP_FEATURE_COUNT + 3;
-
-
-  /**
-   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Model <em>Model</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Model</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Model
-   * @generated
-   */
-  EClass getModel();
+  int MUL_OR_DIV_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
-   * Returns the meta object for the containment reference list '{@link dk.sdu.mmmi.mdsd.math.Model#getMath <em>Math</em>}'.
+   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.NumberImpl <em>Number</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Math</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Model#getMath()
-   * @see #getModel()
+   * @see dk.sdu.mmmi.mdsd.math.impl.NumberImpl
+   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getNumber()
    * @generated
    */
-  EReference getModel_Math();
+  int NUMBER = 9;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMBER__VALUE = ATOMIC_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Number</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMBER_FEATURE_COUNT = ATOMIC_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link dk.sdu.mmmi.mdsd.math.impl.VariableUseImpl <em>Variable Use</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see dk.sdu.mmmi.mdsd.math.impl.VariableUseImpl
+   * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getVariableUse()
+   * @generated
+   */
+  int VARIABLE_USE = 10;
+
+  /**
+   * The feature id for the '<em><b>Variable Use</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_USE__VARIABLE_USE = ATOMIC_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Variable Use</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_USE_FEATURE_COUNT = ATOMIC_FEATURE_COUNT + 1;
+
 
   /**
    * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.MathExp <em>Exp</em>}'.
@@ -359,78 +431,98 @@ public interface MathPackage extends EPackage
   EClass getMathExp();
 
   /**
-   * Returns the meta object for the attribute '{@link dk.sdu.mmmi.mdsd.math.MathExp#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference list '{@link dk.sdu.mmmi.mdsd.math.MathExp#getElements <em>Elements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Elements</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.MathExp#getElements()
+   * @see #getMathExp()
+   * @generated
+   */
+  EReference getMathExp_Elements();
+
+  /**
+   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.AbstractElement <em>Abstract Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Abstract Element</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.AbstractElement
+   * @generated
+   */
+  EClass getAbstractElement();
+
+  /**
+   * Returns the meta object for the attribute '{@link dk.sdu.mmmi.mdsd.math.AbstractElement#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.MathExp#getName()
-   * @see #getMathExp()
+   * @see dk.sdu.mmmi.mdsd.math.AbstractElement#getName()
+   * @see #getAbstractElement()
    * @generated
    */
-  EAttribute getMathExp_Name();
+  EAttribute getAbstractElement_Name();
 
   /**
-   * Returns the meta object for the containment reference '{@link dk.sdu.mmmi.mdsd.math.MathExp#getExp <em>Exp</em>}'.
+   * Returns the meta object for the containment reference '{@link dk.sdu.mmmi.mdsd.math.AbstractElement#getExpression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exp</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.MathExp#getExp()
-   * @see #getMathExp()
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.AbstractElement#getExpression()
+   * @see #getAbstractElement()
    * @generated
    */
-  EReference getMathExp_Exp();
+  EReference getAbstractElement_Expression();
 
   /**
-   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Exp <em>Exp</em>}'.
+   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Variable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Exp</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Exp
+   * @return the meta object for class '<em>Variable</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.Variable
    * @generated
    */
-  EClass getExp();
+  EClass getVariable();
 
   /**
-   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Number <em>Number</em>}'.
+   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.LetExpression <em>Let Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Number</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Number
+   * @return the meta object for class '<em>Let Expression</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.LetExpression
    * @generated
    */
-  EClass getNumber();
+  EClass getLetExpression();
 
   /**
-   * Returns the meta object for the attribute '{@link dk.sdu.mmmi.mdsd.math.Number#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link dk.sdu.mmmi.mdsd.math.LetExpression#getVariable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Number#getValue()
-   * @see #getNumber()
+   * @return the meta object for the containment reference '<em>Variable</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.LetExpression#getVariable()
+   * @see #getLetExpression()
    * @generated
    */
-  EAttribute getNumber_Value();
+  EReference getLetExpression_Variable();
 
   /**
-   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Primary <em>Primary</em>}'.
+   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Expression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Primary</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Primary
+   * @return the meta object for class '<em>Expression</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.Expression
    * @generated
    */
-  EClass getPrimary();
+  EClass getExpression();
 
   /**
-   * Returns the meta object for the containment reference '{@link dk.sdu.mmmi.mdsd.math.Primary#getExp <em>Exp</em>}'.
+   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Atomic <em>Atomic</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exp</em>'.
-   * @see dk.sdu.mmmi.mdsd.math.Primary#getExp()
-   * @see #getPrimary()
+   * @return the meta object for class '<em>Atomic</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.Atomic
    * @generated
    */
-  EReference getPrimary_Exp();
+  EClass getAtomic();
 
   /**
    * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Plus <em>Plus</em>}'.
@@ -540,6 +632,48 @@ public interface MathPackage extends EPackage
   EReference getMulOrDiv_Right();
 
   /**
+   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.Number <em>Number</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Number</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.Number
+   * @generated
+   */
+  EClass getNumber();
+
+  /**
+   * Returns the meta object for the attribute '{@link dk.sdu.mmmi.mdsd.math.Number#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.Number#getValue()
+   * @see #getNumber()
+   * @generated
+   */
+  EAttribute getNumber_Value();
+
+  /**
+   * Returns the meta object for class '{@link dk.sdu.mmmi.mdsd.math.VariableUse <em>Variable Use</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Variable Use</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.VariableUse
+   * @generated
+   */
+  EClass getVariableUse();
+
+  /**
+   * Returns the meta object for the reference '{@link dk.sdu.mmmi.mdsd.math.VariableUse#getVariableUse <em>Variable Use</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Variable Use</em>'.
+   * @see dk.sdu.mmmi.mdsd.math.VariableUse#getVariableUse()
+   * @see #getVariableUse()
+   * @generated
+   */
+  EReference getVariableUse_VariableUse();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -563,24 +697,6 @@ public interface MathPackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.ModelImpl <em>Model</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see dk.sdu.mmmi.mdsd.math.impl.ModelImpl
-     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getModel()
-     * @generated
-     */
-    EClass MODEL = eINSTANCE.getModel();
-
-    /**
-     * The meta object literal for the '<em><b>Math</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MODEL__MATH = eINSTANCE.getModel_Math();
-
-    /**
      * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.MathExpImpl <em>Exp</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -591,66 +707,86 @@ public interface MathPackage extends EPackage
     EClass MATH_EXP = eINSTANCE.getMathExp();
 
     /**
+     * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MATH_EXP__ELEMENTS = eINSTANCE.getMathExp_Elements();
+
+    /**
+     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.AbstractElementImpl <em>Abstract Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see dk.sdu.mmmi.mdsd.math.impl.AbstractElementImpl
+     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getAbstractElement()
+     * @generated
+     */
+    EClass ABSTRACT_ELEMENT = eINSTANCE.getAbstractElement();
+
+    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MATH_EXP__NAME = eINSTANCE.getMathExp_Name();
+    EAttribute ABSTRACT_ELEMENT__NAME = eINSTANCE.getAbstractElement_Name();
 
     /**
-     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MATH_EXP__EXP = eINSTANCE.getMathExp_Exp();
+    EReference ABSTRACT_ELEMENT__EXPRESSION = eINSTANCE.getAbstractElement_Expression();
 
     /**
-     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.ExpImpl <em>Exp</em>}' class.
+     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.VariableImpl <em>Variable</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see dk.sdu.mmmi.mdsd.math.impl.ExpImpl
-     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getExp()
+     * @see dk.sdu.mmmi.mdsd.math.impl.VariableImpl
+     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getVariable()
      * @generated
      */
-    EClass EXP = eINSTANCE.getExp();
+    EClass VARIABLE = eINSTANCE.getVariable();
 
     /**
-     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.NumberImpl <em>Number</em>}' class.
+     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.LetExpressionImpl <em>Let Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see dk.sdu.mmmi.mdsd.math.impl.NumberImpl
-     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getNumber()
+     * @see dk.sdu.mmmi.mdsd.math.impl.LetExpressionImpl
+     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getLetExpression()
      * @generated
      */
-    EClass NUMBER = eINSTANCE.getNumber();
+    EClass LET_EXPRESSION = eINSTANCE.getLetExpression();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute NUMBER__VALUE = eINSTANCE.getNumber_Value();
-
-    /**
-     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.PrimaryImpl <em>Primary</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see dk.sdu.mmmi.mdsd.math.impl.PrimaryImpl
-     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getPrimary()
-     * @generated
-     */
-    EClass PRIMARY = eINSTANCE.getPrimary();
-
-    /**
-     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PRIMARY__EXP = eINSTANCE.getPrimary_Exp();
+    EReference LET_EXPRESSION__VARIABLE = eINSTANCE.getLetExpression_Variable();
+
+    /**
+     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.ExpressionImpl <em>Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see dk.sdu.mmmi.mdsd.math.impl.ExpressionImpl
+     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getExpression()
+     * @generated
+     */
+    EClass EXPRESSION = eINSTANCE.getExpression();
+
+    /**
+     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.AtomicImpl <em>Atomic</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see dk.sdu.mmmi.mdsd.math.impl.AtomicImpl
+     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getAtomic()
+     * @generated
+     */
+    EClass ATOMIC = eINSTANCE.getAtomic();
 
     /**
      * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.PlusImpl <em>Plus</em>}' class.
@@ -737,6 +873,42 @@ public interface MathPackage extends EPackage
      * @generated
      */
     EReference MUL_OR_DIV__RIGHT = eINSTANCE.getMulOrDiv_Right();
+
+    /**
+     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.NumberImpl <em>Number</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see dk.sdu.mmmi.mdsd.math.impl.NumberImpl
+     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getNumber()
+     * @generated
+     */
+    EClass NUMBER = eINSTANCE.getNumber();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute NUMBER__VALUE = eINSTANCE.getNumber_Value();
+
+    /**
+     * The meta object literal for the '{@link dk.sdu.mmmi.mdsd.math.impl.VariableUseImpl <em>Variable Use</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see dk.sdu.mmmi.mdsd.math.impl.VariableUseImpl
+     * @see dk.sdu.mmmi.mdsd.math.impl.MathPackageImpl#getVariableUse()
+     * @generated
+     */
+    EClass VARIABLE_USE = eINSTANCE.getVariableUse();
+
+    /**
+     * The meta object literal for the '<em><b>Variable Use</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_USE__VARIABLE_USE = eINSTANCE.getVariableUse_VariableUse();
 
   }
 

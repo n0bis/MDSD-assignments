@@ -1,7 +1,6 @@
 package dk.sdu.mmmi.mdsd.tests
 
 import com.google.inject.Inject
-import dk.sdu.mmmi.mdsd.math.MathExp
 import dk.sdu.mmmi.mdsd.math.MathPackage
 import org.eclipse.xtext.diagnostics.Diagnostic
 import org.eclipse.xtext.testing.InjectWith
@@ -10,12 +9,12 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import dk.sdu.mmmi.mdsd.math.Model
+import dk.sdu.mmmi.mdsd.math.MathExp
 
 @ExtendWith(InjectionExtension)
 @InjectWith(MathInjectorProvider)
 class MathScopeTest {
-	@Inject extension ParseHelper<Model>
+	@Inject extension ParseHelper<MathExp>
 	@Inject extension ValidationTestHelper
 	
 	val epackage = MathPackage.eINSTANCE
