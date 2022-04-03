@@ -31,8 +31,8 @@ import dk.sdu.mmmi.mdsd.math.MathExp
  */
 class MathGenerator extends AbstractGenerator {
 	
-	@Inject static IResourceScopeCache cache
 	static Map<String, Integer> variables = new HashMap();
+	static Map<String, Integer> letvariables = new HashMap();
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val model = resource.allContents.filter(MathExp).next
@@ -43,6 +43,7 @@ class MathGenerator extends AbstractGenerator {
 	def static compute(MathExp model) {
 		for (variable : model.elements) {
 			variables.put(variable.name, variable.expression.computeExp)
+			letvariables.clear()
 		}
 		return variables
 	}
@@ -63,13 +64,17 @@ class MathGenerator extends AbstractGenerator {
 				(e.left.computeExp as Integer) + (e.right.computeExp as Integer)
 			}
 			LetExpression: {
-				variables.put(e.name, e.variable.computeExp)
+				letvariables.put(e.name, e.variable.computeExp)
+				//variables.put(e.name, e.variable.computeExp)
 				e.expression.computeExp
 			}
 			Atomic: {
 				switch e {
 					VariableUse: {
-						variables.get(e.variableUse.name)
+						if(letvariables.get(e.variableUse.name) !== null)
+							letvariables.get(e.variableUse.name)
+						else
+							variables.get(e.variableUse.name)
 					}
 					Number: e.value
 				}

@@ -5,7 +5,6 @@ package dk.sdu.mmmi.mdsd.generator;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterators;
-import com.google.inject.Inject;
 import dk.sdu.mmmi.mdsd.math.Atomic;
 import dk.sdu.mmmi.mdsd.math.Expression;
 import dk.sdu.mmmi.mdsd.math.LetExpression;
@@ -24,7 +23,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
-import org.eclipse.xtext.util.IResourceScopeCache;
 
 /**
  * Generates code from your model files on save.
@@ -33,10 +31,9 @@ import org.eclipse.xtext.util.IResourceScopeCache;
  */
 @SuppressWarnings("all")
 public class MathGenerator extends AbstractGenerator {
-  @Inject
-  private static IResourceScopeCache cache;
-  
   private static Map<String, Integer> variables = new HashMap<String, Integer>();
+  
+  private static Map<String, Integer> letvariables = new HashMap<String, Integer>();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
@@ -48,7 +45,10 @@ public class MathGenerator extends AbstractGenerator {
   public static Map<String, Integer> compute(final MathExp model) {
     EList<Variable> _elements = model.getElements();
     for (final Variable variable : _elements) {
-      MathGenerator.variables.put(variable.getName(), Integer.valueOf(MathGenerator.computeExp(variable.getExpression())));
+      {
+        MathGenerator.variables.put(variable.getName(), Integer.valueOf(MathGenerator.computeExp(variable.getExpression())));
+        MathGenerator.letvariables.clear();
+      }
     }
     return MathGenerator.variables;
   }
@@ -97,7 +97,7 @@ public class MathGenerator extends AbstractGenerator {
         _matched=true;
         int _xblockexpression = (int) 0;
         {
-          MathGenerator.variables.put(((LetExpression)e).getName(), Integer.valueOf(MathGenerator.computeExp(((LetExpression)e).getVariable())));
+          MathGenerator.letvariables.put(((LetExpression)e).getName(), Integer.valueOf(MathGenerator.computeExp(((LetExpression)e).getVariable())));
           _xblockexpression = MathGenerator.computeExp(((LetExpression)e).getExpression());
         }
         _switchResult = Integer.valueOf(_xblockexpression);
@@ -110,7 +110,15 @@ public class MathGenerator extends AbstractGenerator {
         boolean _matched_1 = false;
         if (e instanceof VariableUse) {
           _matched_1=true;
-          _switchResult_1 = MathGenerator.variables.get(((VariableUse)e).getVariableUse().getName());
+          Integer _xifexpression = null;
+          Integer _get = MathGenerator.letvariables.get(((VariableUse)e).getVariableUse().getName());
+          boolean _tripleNotEquals = (_get != null);
+          if (_tripleNotEquals) {
+            _xifexpression = MathGenerator.letvariables.get(((VariableUse)e).getVariableUse().getName());
+          } else {
+            _xifexpression = MathGenerator.variables.get(((VariableUse)e).getVariableUse().getName());
+          }
+          _switchResult_1 = _xifexpression;
         }
         if (!_matched_1) {
           if (e instanceof dk.sdu.mmmi.mdsd.math.Number) {

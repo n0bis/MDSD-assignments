@@ -5,14 +5,16 @@ package dk.sdu.mmmi.mdsd.scoping;
 
 import com.google.common.base.Objects;
 import dk.sdu.mmmi.mdsd.math.LetExpression;
+import dk.sdu.mmmi.mdsd.math.MathExp;
 import dk.sdu.mmmi.mdsd.math.MathPackage;
-import java.util.Collections;
+import dk.sdu.mmmi.mdsd.math.Variable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * This class contains custom scoping description.
@@ -23,24 +25,34 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 @SuppressWarnings("all")
 public class MathScopeProvider extends AbstractMathScopeProvider {
   @Override
-  public IScope getScope(final EObject object, final EReference ref) {
-    boolean _matched = false;
-    if (object instanceof LetExpression) {
-      boolean _equals = Objects.equal(ref, MathPackage.Literals.VARIABLE_USE__VARIABLE_USE);
-      if (_equals) {
-        _matched=true;
-        final LetExpression letvariable = EcoreUtil2.<LetExpression>getContainerOfType(object, LetExpression.class);
-        return Scopes.scopeFor(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(letvariable)), this.baseScope(letvariable));
-      }
+  public IScope getScope(final EObject context, final EReference reference) {
+    boolean _equals = Objects.equal(reference, MathPackage.Literals.VARIABLE_USE__VARIABLE_USE);
+    if (_equals) {
+      return this.getLocalLetVariable(context);
     }
-    return super.getScope(object, ref);
+    return super.getScope(context, reference);
   }
   
-  public IScope baseScope(final EObject context) {
-    final EObject base = context;
-    if ((base == null)) {
-      return IScope.NULLSCOPE;
+  public IScope getLocalLetVariable(final EObject context) {
+    final EObject container = context.eContainer();
+    IScope _switchResult = null;
+    boolean _matched = false;
+    if (container instanceof LetExpression) {
+      _matched=true;
+      _switchResult = Scopes.scopeFor(CollectionLiterals.<LetExpression>newArrayList(((LetExpression)container)), this.getLocalLetVariable(container));
     }
-    return Scopes.scopeFor(Collections.<EObject>unmodifiableList(CollectionLiterals.<EObject>newArrayList(base)), this.baseScope(base));
+    if (!_matched) {
+      if (container instanceof MathExp) {
+        _matched=true;
+        final Function1<Variable, Boolean> _function = (Variable it) -> {
+          return Boolean.valueOf((!Objects.equal(it, context)));
+        };
+        _switchResult = Scopes.scopeFor(IterableExtensions.<Variable>filter(((MathExp)container).getElements(), _function));
+      }
+    }
+    if (!_matched) {
+      _switchResult = this.getLocalLetVariable(container);
+    }
+    return _switchResult;
   }
 }

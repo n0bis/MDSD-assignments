@@ -13,6 +13,9 @@ import dk.sdu.mmmi.mdsd.math.Variable
 import dk.sdu.mmmi.mdsd.math.AbstractElement
 import dk.sdu.mmmi.mdsd.math.MathExp
 import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.scoping.impl.FilteringScope
+import java.util.List
+import dk.sdu.mmmi.mdsd.math.VariableUse
 
 /**
  * This class contains custom scoping description.
@@ -21,21 +24,24 @@ import org.eclipse.xtext.EcoreUtil2
  * on how and when to use it.
  */
 class MathScopeProvider extends AbstractMathScopeProvider {
-	override getScope(EObject object, EReference ref) {
-        switch (object){
-            LetExpression case ref == Literals.VARIABLE_USE__VARIABLE_USE: {
-                val letvariable = EcoreUtil2.getContainerOfType(object,LetExpression)
-                return Scopes.scopeFor(#[letvariable], letvariable.baseScope())
-            }
-        }
-        
-        return super.getScope(object, ref)
-    }   
-    
-    def IScope baseScope(EObject context) {
-        val base = context
-        if(base === null)
-            return IScope.NULLSCOPE
-        return Scopes.scopeFor(#[base], base.baseScope())
-    }
+
+	override getScope(EObject context, EReference reference) {
+		if (reference == Literals.VARIABLE_USE__VARIABLE_USE) {
+			return context.getLocalLetVariable
+		}
+		return super.getScope(context, reference);
+	}
+	
+	def IScope getLocalLetVariable(EObject context) {
+		val container = context.eContainer
+		return switch (container) {
+			LetExpression: Scopes.scopeFor(newArrayList(container), container.getLocalLetVariable)
+			MathExp: Scopes.scopeFor(container.elements.filter[it != context])
+			default: container.getLocalLetVariable
+		}
+	}
 }
+
+/*
+ * 
+ */
