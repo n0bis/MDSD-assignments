@@ -1,0 +1,4 @@
+// Let binding expression
+
+program Test18
+var x = let y = 10 * 8 in  y + 7 end

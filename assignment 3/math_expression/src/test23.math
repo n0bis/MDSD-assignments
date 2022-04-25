@@ -1,0 +1,5 @@
+// reference to var binding inside let body
+
+program Test23
+var x = 21
+var y = let i = 2 in i * x end

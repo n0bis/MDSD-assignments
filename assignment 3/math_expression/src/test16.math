@@ -1,0 +1,4 @@
+// Precedence
+
+program Test16
+var x = 10 + 3 * 4 - 12 / 3 + 3

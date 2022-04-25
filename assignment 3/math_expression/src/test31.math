@@ -1,0 +1,6 @@
+// External call and expressions
+
+program Test31
+external pow(int,int)
+var x = 5
+var y = 2 + pow(let i = x in i - 3 end, 3 * 2)

@@ -1,0 +1,4 @@
+// Addition
+
+program Test02
+var x = 40 + 2

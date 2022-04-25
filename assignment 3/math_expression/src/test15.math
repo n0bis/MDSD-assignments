@@ -1,0 +1,4 @@
+// Parenthesis
+
+program Test15
+var x = (10 + 3) * 7 - 4

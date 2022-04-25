@@ -1,0 +1,6 @@
+// External calls with one argument
+
+program Test28
+external sqrt(int)
+var x = sqrt(4)
+var y = x * 2

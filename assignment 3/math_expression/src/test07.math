@@ -1,0 +1,4 @@
+// Addition and subtraction
+
+program Test07
+var x = 100 - 20 + 10 - 3

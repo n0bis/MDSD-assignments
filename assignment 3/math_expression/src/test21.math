@@ -1,0 +1,5 @@
+// Variable binding
+
+program Test21
+var x = 42
+var y = x

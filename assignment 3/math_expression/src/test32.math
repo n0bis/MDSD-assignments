@@ -1,0 +1,8 @@
+// Full example 1
+
+program Test32
+var a = 40
+var b = 40 + 2
+var c = 40 + 5 - 10 - 8
+var d = 40 + 2 * 4 + 80
+var e = (40 + 2) * (4 + 80)

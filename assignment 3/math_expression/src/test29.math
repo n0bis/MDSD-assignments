@@ -1,0 +1,6 @@
+// External call with multiple arguments
+
+program Test29
+external pow(int, int)
+var x = pow(4, 2)
+var y = x - 2

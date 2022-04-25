@@ -1,0 +1,23 @@
+// Full example 3
+
+program Test34
+external pow(int,int)
+external sqrt(int)
+external pi()
+
+var sideA = 3
+var sideB = 4
+var sideC = 
+	let powA = pow(sideA, 2) in
+		let powB = pow(sideB, 2) in
+			sqrt(powA + powB)
+		end
+	end
+
+var perimeterTriangle = sideA + sideB + sideC
+
+var radius = 5
+var perimeterCircle = 
+	let diameter = 2 * radius in
+		diameter * pi()
+	end

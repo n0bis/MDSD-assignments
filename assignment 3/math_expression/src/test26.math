@@ -1,0 +1,5 @@
+// let binding reference to var binding and shadowing
+
+program Test26
+var x = 21
+var y = let x = x + 1 in x * 2 end

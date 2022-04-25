@@ -1,0 +1,4 @@
+// Subtraction non commutative
+
+program Test05
+var x = 4 - 46

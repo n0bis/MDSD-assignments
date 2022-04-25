@@ -1,0 +1,4 @@
+// Multiplication and division
+
+program Test13
+var x = 100 * 20 / 10 * 3 

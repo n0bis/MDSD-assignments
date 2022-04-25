@@ -1,0 +1,7 @@
+// Full example 2
+
+program Test33
+var a = 40
+var b = let i = 2 in a * i end
+var c = b * 3
+var d = let i = 4 in  c + i end

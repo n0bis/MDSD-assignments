@@ -1,0 +1,6 @@
+// external call without arguments
+
+program Test27
+external pi()
+var x = pi()
+var y = x + 2

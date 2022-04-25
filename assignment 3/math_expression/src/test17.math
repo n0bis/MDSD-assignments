@@ -1,0 +1,4 @@
+// Let binding number
+
+program Test17
+var x = let y = 42 in y end

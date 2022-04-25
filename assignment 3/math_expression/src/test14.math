@@ -1,0 +1,6 @@
+// Variables
+
+program Test14
+var x = 42
+var y = 100 - 20 + 10 - 3
+var z = 100 * 20 / 10 * 3

@@ -1,0 +1,4 @@
+// Three numbers division
+
+program Test12
+var x = 120 / 6 / 5

@@ -1,0 +1,7 @@
+// Multiple external calls
+
+program Test30
+external pow(int,int)
+external sqrt(int)
+external pi()
+var x = sqrt(pow(pi(), 2))

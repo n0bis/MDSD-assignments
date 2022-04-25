@@ -1,0 +1,4 @@
+// three numbers addition
+
+program Test03
+var x = 22 + 18 + 2
