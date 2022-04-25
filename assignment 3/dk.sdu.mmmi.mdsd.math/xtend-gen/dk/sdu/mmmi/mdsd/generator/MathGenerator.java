@@ -6,9 +6,7 @@ package dk.sdu.mmmi.mdsd.generator;
 import com.google.common.collect.Iterators;
 import dk.sdu.mmmi.mdsd.math.Div;
 import dk.sdu.mmmi.mdsd.math.Expression;
-import dk.sdu.mmmi.mdsd.math.External;
 import dk.sdu.mmmi.mdsd.math.MathNumber;
-import dk.sdu.mmmi.mdsd.math.Method;
 import dk.sdu.mmmi.mdsd.math.Minus;
 import dk.sdu.mmmi.mdsd.math.Mult;
 import dk.sdu.mmmi.mdsd.math.Parenthesis;
@@ -84,54 +82,6 @@ public class MathGenerator extends AbstractGenerator {
     _builder.append("\t");
     _builder.append("}");
     _builder.newLine();
-    _builder.append("\t");
-    _builder.newLine();
-    {
-      boolean _isEmpty = program.getExternals().isEmpty();
-      boolean _not = (!_isEmpty);
-      if (_not) {
-        _builder.append("\t");
-        _builder.append("private External external;\t");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("public ");
-        String _name_3 = program.getName();
-        _builder.append(_name_3, "\t");
-        _builder.append("(External external){");
-        _builder.newLineIfNotEmpty();
-        _builder.append("\t");
-        _builder.append("\t");
-        _builder.append("this.external = external;");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("}");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("interface External {\t\t");
-        _builder.newLine();
-        {
-          EList<External> _externals = program.getExternals();
-          for(final External external : _externals) {
-            _builder.append("\t");
-            _builder.append("public int ");
-            String _name_4 = external.getName();
-            _builder.append(_name_4, "\t");
-            _builder.append(" (");
-            String _listAllExpressions = this.listAllExpressions(external);
-            _builder.append(_listAllExpressions, "\t");
-            _builder.append(");");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-        _builder.append("\t");
-        _builder.append("}");
-        _builder.newLine();
-      }
-    }
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -164,21 +114,6 @@ public class MathGenerator extends AbstractGenerator {
         String _output = output;
         String _name = ((VariableUse)expression).getRef().getName();
         output = (_output + _name);
-      }
-    }
-    if (!_matched) {
-      if (expression instanceof Method) {
-        _matched=true;
-        String _output = output;
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("this.external.");
-        String _name = ((Method)expression).getRef().getName();
-        _builder.append(_name);
-        _builder.append("(");
-        String _listAllExpressions = this.listAllExpressions(((Method)expression));
-        _builder.append(_listAllExpressions);
-        _builder.append(")");
-        output = (_output + _builder);
       }
     }
     if (!_matched) {
@@ -232,42 +167,6 @@ public class MathGenerator extends AbstractGenerator {
         _builder.append(_resolve_1);
         output = (_output + _builder);
       }
-    }
-    return output;
-  }
-  
-  public String listAllExpressions(final Method method) {
-    String output = "";
-    EList<Expression> _exps = method.getExps();
-    for (final Expression exp : _exps) {
-      String _output = output;
-      String _resolve = this.resolve(exp);
-      String _plus = (_resolve + ", ");
-      output = (_output + _plus);
-    }
-    int _length = output.length();
-    boolean _greaterThan = (_length > 2);
-    if (_greaterThan) {
-      int _length_1 = output.length();
-      int _minus = (_length_1 - 2);
-      output = output.substring(0, _minus);
-    }
-    return output;
-  }
-  
-  public String listAllExpressions(final External external) {
-    String output = "";
-    EList<String> _args = external.getArgs();
-    for (final String arg : _args) {
-      String _output = output;
-      output = (_output + "«arg»,");
-    }
-    int _length = output.length();
-    boolean _greaterThan = (_length > 2);
-    if (_greaterThan) {
-      int _length_1 = output.length();
-      int _minus = (_length_1 - 2);
-      output = output.substring(0, _minus);
     }
     return output;
   }

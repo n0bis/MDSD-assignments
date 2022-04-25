@@ -48,20 +48,6 @@ class MathGenerator extends AbstractGenerator {
 				«varBinding.name» = «varBinding.expression.resolve»;
 				«ENDFOR»
 			}
-			
-			«IF !program.externals.empty»
-			private External external;	
-			
-			public «program.name»(External external){
-				this.external = external;
-			}
-			
-			interface External {		
-			«FOR external : program.externals»
-				public int «external.name» («external.listAllExpressions»);
-			«ENDFOR»
-			}
-			«ENDIF»
 		}
 		'''
 	}
@@ -72,32 +58,11 @@ class MathGenerator extends AbstractGenerator {
 			MathNumber: output += expression.value
 			Parenthesis: output += '''( «expression.exp.resolve» )'''
 			VariableUse: output += expression.ref.name
-			Method: output += '''this.external.«expression.ref.name»(«expression.listAllExpressions»)'''
 			Plus: output += '''«expression.left.resolve» + «expression.right.resolve»'''
 			Minus: output += '''«expression.left.resolve» - «expression.right.resolve»'''
 			Div: output += '''«expression.left.resolve» / «expression.right.resolve»'''
 			Mult: output += '''«expression.left.resolve» * «expression.right.resolve»'''
 		}
-		return output
-	}
-	
-	def String listAllExpressions(Method method){
-		var output = ""
-		for(exp : method.exps){
-			output += exp.resolve + ", "
-		}
-		if(output.length() > 2) 
-			output = output.substring(0, output.length() - 2)
-		return output
-	}
-	
-	def String listAllExpressions(External external) {
-		var output = ""
-		for(arg : external.args){
-			output += "«arg»,"
-		}
-		if(output.length() > 2) 
-			output = output.substring(0, output.length() - 2)
 		return output
 	}
 	
