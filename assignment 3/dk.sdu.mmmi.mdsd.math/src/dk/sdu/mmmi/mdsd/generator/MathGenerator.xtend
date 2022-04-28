@@ -21,6 +21,7 @@ import dk.sdu.mmmi.mdsd.math.VarBinding
 import dk.sdu.mmmi.mdsd.math.LetBinding
 import java.util.HashMap
 import dk.sdu.mmmi.mdsd.math.MathExp
+import dk.sdu.mmmi.mdsd.math.Binding
 
 /**
  * Generates code from your model files on save.
@@ -39,7 +40,8 @@ class MathGenerator extends AbstractGenerator {
 	def compile(MathExp program){
 		variables = new HashMap()
 		for(varBinding: program.variables)
-			varBinding.computeExpression()
+			variables.put(varBinding.name, varBinding.expression.computeExpression())
+
 		'''
 		package math_expression;
 		
@@ -70,53 +72,26 @@ class MathGenerator extends AbstractGenerator {
 		'''
 	}
 	
-	def static dispatch String computeExpression(VarBinding binding) {
-		variables.put(binding.name, binding.expression.computeExpression())
-		return variables.get(binding.name)
+	def static dispatch String computeExpression(Expression exp) {
+		switch exp {
+			MathNumber: exp.value.toString
+			Plus: exp.left.computeExpression + ' + ' + exp.right.computeExpression
+			Minus: exp.left.computeExpression + ' - ' + exp.right.computeExpression
+			Mult: exp.left.computeExpression + ' * ' + exp.right.computeExpression
+			Div: exp.left.computeExpression + ' / ' + exp.right.computeExpression
+			Parenthesis: '(' + exp.exp.computeExpression + ')'
+			LetBinding: exp.body.computeExpression
+			VariableUse: '(' + exp.ref.computeBinding + ')'
+			Method: '''this.external.'''+ exp.ref.name + '''(«FOR x : exp.exps SEPARATOR ', '» «x.computeExpression» «ENDFOR»)'''
+		}
 	}
 	
-	def static dispatch String computeExpression(MathNumber exp) {
-		exp.value.toString
-	}
 
-	def static dispatch String computeExpression(Plus exp) {
-		exp.left.computeExpression + ' + ' + exp.right.computeExpression
-	}
-	
-	def static dispatch String computeExpression(Minus exp) {
-		exp.left.computeExpression + ' - ' + exp.right.computeExpression
-	}
-	
-	def static dispatch String computeExpression(Mult exp) {
-		exp.left.computeExpression + ' * ' + exp.right.computeExpression
-	}
-	
-	def static dispatch String computeExpression(Div exp) {
-		exp.left.computeExpression + ' / ' + exp.right.computeExpression
-	}
-	
-	def static dispatch String computeExpression(Parenthesis exp) {
-		'(' + exp.exp.computeExpression + ')'
-	}
-
-	def static dispatch String computeExpression(LetBinding exp) {
-		exp.body.computeExpression
-	}
-	
-	def static dispatch String computeExpression(VariableUse exp) {
-		'(' + exp.ref.computeBinding + ')'
-	}
-
-	def static dispatch String computeBinding(VarBinding binding){
-		binding.name
-	}
-	
-	def static dispatch String computeBinding(LetBinding binding){
-		binding.binding.computeExpression
-	}
-
-	def static dispatch String computeExpression(Method exp){
-		'''this.external.'''+ exp.ref.name + '''(«FOR x : exp.exps SEPARATOR ', '» «x.computeExpression» «ENDFOR»)''' 
+	def static dispatch String computeBinding(Binding binding) {
+		switch binding {
+			VarBinding: binding.name
+			LetBinding: binding.binding.computeExpression
+		}
 	}
 	
 }

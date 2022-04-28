@@ -18,11 +18,9 @@ import dk.sdu.mmmi.mdsd.math.Parenthesis;
 import dk.sdu.mmmi.mdsd.math.Plus;
 import dk.sdu.mmmi.mdsd.math.VarBinding;
 import dk.sdu.mmmi.mdsd.math.VariableUse;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
@@ -54,7 +52,7 @@ public class MathGenerator extends AbstractGenerator {
       MathGenerator.variables = _hashMap;
       EList<VarBinding> _variables = program.getVariables();
       for (final VarBinding varBinding : _variables) {
-        MathGenerator.computeExpression(varBinding);
+        MathGenerator.variables.put(varBinding.getName(), MathGenerator.computeExpression(varBinding.getExpression()));
       }
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("package math_expression;");
@@ -164,128 +162,123 @@ public class MathGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected static String _computeExpression(final VarBinding binding) {
-    MathGenerator.variables.put(binding.getName(), MathGenerator.computeExpression(binding.getExpression()));
-    return MathGenerator.variables.get(binding.getName());
-  }
-  
-  protected static String _computeExpression(final MathNumber exp) {
-    return Integer.valueOf(exp.getValue()).toString();
-  }
-  
-  protected static String _computeExpression(final Plus exp) {
-    String _computeExpression = MathGenerator.computeExpression(exp.getLeft());
-    String _plus = (_computeExpression + " + ");
-    String _computeExpression_1 = MathGenerator.computeExpression(exp.getRight());
-    return (_plus + _computeExpression_1);
-  }
-  
-  protected static String _computeExpression(final Minus exp) {
-    String _computeExpression = MathGenerator.computeExpression(exp.getLeft());
-    String _plus = (_computeExpression + " - ");
-    String _computeExpression_1 = MathGenerator.computeExpression(exp.getRight());
-    return (_plus + _computeExpression_1);
-  }
-  
-  protected static String _computeExpression(final Mult exp) {
-    String _computeExpression = MathGenerator.computeExpression(exp.getLeft());
-    String _plus = (_computeExpression + " * ");
-    String _computeExpression_1 = MathGenerator.computeExpression(exp.getRight());
-    return (_plus + _computeExpression_1);
-  }
-  
-  protected static String _computeExpression(final Div exp) {
-    String _computeExpression = MathGenerator.computeExpression(exp.getLeft());
-    String _plus = (_computeExpression + " / ");
-    String _computeExpression_1 = MathGenerator.computeExpression(exp.getRight());
-    return (_plus + _computeExpression_1);
-  }
-  
-  protected static String _computeExpression(final Parenthesis exp) {
-    String _computeExpression = MathGenerator.computeExpression(exp.getExp());
-    String _plus = ("(" + _computeExpression);
-    return (_plus + ")");
-  }
-  
-  protected static String _computeExpression(final LetBinding exp) {
-    return MathGenerator.computeExpression(exp.getBody());
-  }
-  
-  protected static String _computeExpression(final VariableUse exp) {
-    String _computeBinding = MathGenerator.computeBinding(exp.getRef());
-    String _plus = ("(" + _computeBinding);
-    return (_plus + ")");
-  }
-  
-  protected static String _computeBinding(final VarBinding binding) {
-    return binding.getName();
-  }
-  
-  protected static String _computeBinding(final LetBinding binding) {
-    return MathGenerator.computeExpression(binding.getBinding());
-  }
-  
-  protected static String _computeExpression(final Method exp) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("this.external.");
-    String _name = exp.getRef().getName();
-    String _plus = (_builder.toString() + _name);
-    StringConcatenation _builder_1 = new StringConcatenation();
-    _builder_1.append("(");
-    {
-      EList<Expression> _exps = exp.getExps();
-      boolean _hasElements = false;
-      for(final Expression x : _exps) {
-        if (!_hasElements) {
-          _hasElements = true;
-        } else {
-          _builder_1.appendImmediate(", ", "");
-        }
-        _builder_1.append(" ");
-        String _computeExpression = MathGenerator.computeExpression(x);
-        _builder_1.append(_computeExpression);
-        _builder_1.append(" ");
+  protected static String _computeExpression(final Expression exp) {
+    String _switchResult = null;
+    boolean _matched = false;
+    if (exp instanceof MathNumber) {
+      _matched=true;
+      _switchResult = Integer.valueOf(((MathNumber)exp).getValue()).toString();
+    }
+    if (!_matched) {
+      if (exp instanceof Plus) {
+        _matched=true;
+        String _computeExpression = MathGenerator.computeExpression(((Plus)exp).getLeft());
+        String _plus = (_computeExpression + " + ");
+        String _computeExpression_1 = MathGenerator.computeExpression(((Plus)exp).getRight());
+        _switchResult = (_plus + _computeExpression_1);
       }
     }
-    _builder_1.append(")");
-    return (_plus + _builder_1);
+    if (!_matched) {
+      if (exp instanceof Minus) {
+        _matched=true;
+        String _computeExpression = MathGenerator.computeExpression(((Minus)exp).getLeft());
+        String _plus = (_computeExpression + " - ");
+        String _computeExpression_1 = MathGenerator.computeExpression(((Minus)exp).getRight());
+        _switchResult = (_plus + _computeExpression_1);
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Mult) {
+        _matched=true;
+        String _computeExpression = MathGenerator.computeExpression(((Mult)exp).getLeft());
+        String _plus = (_computeExpression + " * ");
+        String _computeExpression_1 = MathGenerator.computeExpression(((Mult)exp).getRight());
+        _switchResult = (_plus + _computeExpression_1);
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Div) {
+        _matched=true;
+        String _computeExpression = MathGenerator.computeExpression(((Div)exp).getLeft());
+        String _plus = (_computeExpression + " / ");
+        String _computeExpression_1 = MathGenerator.computeExpression(((Div)exp).getRight());
+        _switchResult = (_plus + _computeExpression_1);
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Parenthesis) {
+        _matched=true;
+        String _computeExpression = MathGenerator.computeExpression(((Parenthesis)exp).getExp());
+        String _plus = ("(" + _computeExpression);
+        _switchResult = (_plus + ")");
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof LetBinding) {
+        _matched=true;
+        _switchResult = MathGenerator.computeExpression(((LetBinding)exp).getBody());
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof VariableUse) {
+        _matched=true;
+        String _computeBinding = MathGenerator.computeBinding(((VariableUse)exp).getRef());
+        String _plus = ("(" + _computeBinding);
+        _switchResult = (_plus + ")");
+      }
+    }
+    if (!_matched) {
+      if (exp instanceof Method) {
+        _matched=true;
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("this.external.");
+        String _name = ((Method)exp).getRef().getName();
+        String _plus = (_builder.toString() + _name);
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("(");
+        {
+          EList<Expression> _exps = ((Method)exp).getExps();
+          boolean _hasElements = false;
+          for(final Expression x : _exps) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder_1.appendImmediate(", ", "");
+            }
+            _builder_1.append(" ");
+            String _computeExpression = MathGenerator.computeExpression(x);
+            _builder_1.append(_computeExpression);
+            _builder_1.append(" ");
+          }
+        }
+        _builder_1.append(")");
+        _switchResult = (_plus + _builder_1);
+      }
+    }
+    return _switchResult;
   }
   
-  public static String computeExpression(final EObject exp) {
-    if (exp instanceof Div) {
-      return _computeExpression((Div)exp);
-    } else if (exp instanceof LetBinding) {
-      return _computeExpression((LetBinding)exp);
-    } else if (exp instanceof MathNumber) {
-      return _computeExpression((MathNumber)exp);
-    } else if (exp instanceof Method) {
-      return _computeExpression((Method)exp);
-    } else if (exp instanceof Minus) {
-      return _computeExpression((Minus)exp);
-    } else if (exp instanceof Mult) {
-      return _computeExpression((Mult)exp);
-    } else if (exp instanceof Parenthesis) {
-      return _computeExpression((Parenthesis)exp);
-    } else if (exp instanceof Plus) {
-      return _computeExpression((Plus)exp);
-    } else if (exp instanceof VarBinding) {
-      return _computeExpression((VarBinding)exp);
-    } else if (exp instanceof VariableUse) {
-      return _computeExpression((VariableUse)exp);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(exp).toString());
+  protected static String _computeBinding(final Binding binding) {
+    String _switchResult = null;
+    boolean _matched = false;
+    if (binding instanceof VarBinding) {
+      _matched=true;
+      _switchResult = ((VarBinding)binding).getName();
     }
+    if (!_matched) {
+      if (binding instanceof LetBinding) {
+        _matched=true;
+        _switchResult = MathGenerator.computeExpression(((LetBinding)binding).getBinding());
+      }
+    }
+    return _switchResult;
+  }
+  
+  public static String computeExpression(final Expression exp) {
+    return _computeExpression(exp);
   }
   
   public static String computeBinding(final Binding binding) {
-    if (binding instanceof LetBinding) {
-      return _computeBinding((LetBinding)binding);
-    } else if (binding instanceof VarBinding) {
-      return _computeBinding((VarBinding)binding);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(binding).toString());
-    }
+    return _computeBinding(binding);
   }
 }
