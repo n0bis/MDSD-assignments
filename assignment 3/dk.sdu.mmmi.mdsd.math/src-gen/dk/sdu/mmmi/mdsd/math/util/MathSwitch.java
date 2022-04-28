@@ -73,10 +73,10 @@ public class MathSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case MathPackage.PROGRAM:
+      case MathPackage.MATH_EXP:
       {
-        Program program = (Program)theEObject;
-        T result = caseProgram(program);
+        MathExp mathExp = (MathExp)theEObject;
+        T result = caseMathExp(mathExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -92,13 +92,6 @@ public class MathSwitch<T> extends Switch<T>
         Method method = (Method)theEObject;
         T result = caseMethod(method);
         if (result == null) result = caseExpression(method);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case MathPackage.MATH_EXP:
-      {
-        MathExp mathExp = (MathExp)theEObject;
-        T result = caseMathExp(mathExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -194,17 +187,17 @@ public class MathSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Program</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Exp</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Program</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Exp</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseProgram(Program object)
+  public T caseMathExp(MathExp object)
   {
     return null;
   }
@@ -237,22 +230,6 @@ public class MathSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMethod(Method object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Exp</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Exp</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseMathExp(MathExp object)
   {
     return null;
   }

@@ -6,16 +6,15 @@ public class Test31 {
 	
 	public void compute() {
 		x = 5;
-		y = 2 + this.external.pow(, 3 * 2);
+		y = 2 + this.external.pow( ((x)) - 3,   3 * 2 );
 	}
 	
-	private External external;	
-	
-	public Test31(External external){
+	private External external;
+	  
+	public Test31(External external) {
 		this.external = external;
 	}
-	
-	interface External {		
-	public int pow («arg»,«arg);
+	public interface External {
+		int pow(int n, int m);
 	}
 }

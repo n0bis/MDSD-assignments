@@ -8,9 +8,9 @@ public class Test33 {
 	
 	public void compute() {
 		a = 40;
-		b = ;
-		c = b * 3;
-		d = ;
+		b = (a) * (2);
+		c = (b) * 3;
+		d = (c) + (4);
 	}
 	
 }

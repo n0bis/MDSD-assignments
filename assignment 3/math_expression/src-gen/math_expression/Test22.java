@@ -6,7 +6,7 @@ public class Test22 {
 	
 	public void compute() {
 		x = 40 + 2;
-		y = x * 2;
+		y = (x) * 2;
 	}
 	
 }

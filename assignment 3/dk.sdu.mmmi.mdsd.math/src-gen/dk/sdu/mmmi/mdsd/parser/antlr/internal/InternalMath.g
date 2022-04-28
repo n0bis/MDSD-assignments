@@ -43,7 +43,7 @@ import dk.sdu.mmmi.mdsd.services.MathGrammarAccess;
 
     @Override
     protected String getFirstRuleName() {
-    	return "Program";
+    	return "MathExp";
    	}
 
    	@Override
@@ -60,15 +60,15 @@ import dk.sdu.mmmi.mdsd.services.MathGrammarAccess;
     }
 }
 
-// Entry rule entryRuleProgram
-entryRuleProgram returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getProgramRule()); }
-	iv_ruleProgram=ruleProgram
-	{ $current=$iv_ruleProgram.current; }
+// Entry rule entryRuleMathExp
+entryRuleMathExp returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getMathExpRule()); }
+	iv_ruleMathExp=ruleMathExp
+	{ $current=$iv_ruleMathExp.current; }
 	EOF;
 
-// Rule Program
-ruleProgram returns [EObject current=null]
+// Rule MathExp
+ruleMathExp returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -78,17 +78,17 @@ ruleProgram returns [EObject current=null]
 	(
 		otherlv_0='program'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getProgramAccess().getProgramKeyword_0());
+			newLeafNode(otherlv_0, grammarAccess.getMathExpAccess().getProgramKeyword_0());
 		}
 		(
 			(
 				lv_name_1_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getProgramAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getMathExpAccess().getNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getProgramRule());
+						$current = createModelElement(grammarAccess.getMathExpRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -101,12 +101,12 @@ ruleProgram returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getProgramAccess().getExternalsExternalParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getMathExpAccess().getExternalsExternalParserRuleCall_2_0());
 				}
 				lv_externals_2_0=ruleExternal
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getProgramRule());
+						$current = createModelElementForParent(grammarAccess.getMathExpRule());
 					}
 					add(
 						$current,
@@ -120,22 +120,22 @@ ruleProgram returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getProgramAccess().getMathExpsMathExpParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getMathExpAccess().getVariablesVarBindingParserRuleCall_3_0());
 				}
-				lv_mathExps_3_0=ruleMathExp
+				lv_variables_3_0=ruleVarBinding
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getProgramRule());
+						$current = createModelElementForParent(grammarAccess.getMathExpRule());
 					}
-					set(
+					add(
 						$current,
-						"mathExps",
-						lv_mathExps_3_0,
-						"dk.sdu.mmmi.mdsd.Math.MathExp");
+						"variables",
+						lv_variables_3_0,
+						"dk.sdu.mmmi.mdsd.Math.VarBinding");
 					afterParserOrEnumRuleCall();
 				}
 			)
-		)
+		)*
 	)
 ;
 
@@ -308,42 +308,6 @@ ruleMethod returns [EObject current=null]
 			newLeafNode(otherlv_5, grammarAccess.getMethodAccess().getRightParenthesisKeyword_3());
 		}
 	)
-;
-
-// Entry rule entryRuleMathExp
-entryRuleMathExp returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getMathExpRule()); }
-	iv_ruleMathExp=ruleMathExp
-	{ $current=$iv_ruleMathExp.current; }
-	EOF;
-
-// Rule MathExp
-ruleMathExp returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			{
-				newCompositeNode(grammarAccess.getMathExpAccess().getVariablesVarBindingParserRuleCall_0());
-			}
-			lv_variables_0_0=ruleVarBinding
-			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getMathExpRule());
-				}
-				add(
-					$current,
-					"variables",
-					lv_variables_0_0,
-					"dk.sdu.mmmi.mdsd.Math.VarBinding");
-				afterParserOrEnumRuleCall();
-			}
-		)
-	)*
 ;
 
 // Entry rule entryRuleVarBinding

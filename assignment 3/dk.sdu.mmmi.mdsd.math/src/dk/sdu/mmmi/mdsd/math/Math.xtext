@@ -2,10 +2,10 @@ grammar dk.sdu.mmmi.mdsd.Math with org.eclipse.xtext.common.Terminals
 
 generate math "http://www.sdu.dk/mmmi/mdsd/Math"
 
-Program:
+MathExp:
 	'program' name=ID
 	externals+=External*
-	mathExps=MathExp
+	variables += VarBinding*
 ;
 
 External:
@@ -14,10 +14,6 @@ External:
 
 Method:
 	ref = [External] '(' (exps+=Exp (','exps+=Exp)*)? ')'
-;
-
-MathExp:
-	variables += VarBinding*
 ;
 
 VarBinding:

@@ -76,9 +76,9 @@ public class MathAdapterFactory extends AdapterFactoryImpl
     new MathSwitch<Adapter>()
     {
       @Override
-      public Adapter caseProgram(Program object)
+      public Adapter caseMathExp(MathExp object)
       {
-        return createProgramAdapter();
+        return createMathExpAdapter();
       }
       @Override
       public Adapter caseExternal(External object)
@@ -89,11 +89,6 @@ public class MathAdapterFactory extends AdapterFactoryImpl
       public Adapter caseMethod(Method object)
       {
         return createMethodAdapter();
-      }
-      @Override
-      public Adapter caseMathExp(MathExp object)
-      {
-        return createMathExpAdapter();
       }
       @Override
       public Adapter caseVarBinding(VarBinding object)
@@ -173,16 +168,16 @@ public class MathAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.Program <em>Program</em>}'.
+   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.MathExp <em>Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see dk.sdu.mmmi.mdsd.math.Program
+   * @see dk.sdu.mmmi.mdsd.math.MathExp
    * @generated
    */
-  public Adapter createProgramAdapter()
+  public Adapter createMathExpAdapter()
   {
     return null;
   }
@@ -213,21 +208,6 @@ public class MathAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMethodAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link dk.sdu.mmmi.mdsd.math.MathExp <em>Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see dk.sdu.mmmi.mdsd.math.MathExp
-   * @generated
-   */
-  public Adapter createMathExpAdapter()
   {
     return null;
   }

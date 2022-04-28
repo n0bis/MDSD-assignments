@@ -4,7 +4,7 @@ public class Test17 {
 	public int x;
 	
 	public void compute() {
-		x = ;
+		x = (42);
 	}
 	
 }

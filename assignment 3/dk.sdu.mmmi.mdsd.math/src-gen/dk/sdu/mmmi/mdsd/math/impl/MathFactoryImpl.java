@@ -65,10 +65,9 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
   {
     switch (eClass.getClassifierID())
     {
-      case MathPackage.PROGRAM: return createProgram();
+      case MathPackage.MATH_EXP: return createMathExp();
       case MathPackage.EXTERNAL: return createExternal();
       case MathPackage.METHOD: return createMethod();
-      case MathPackage.MATH_EXP: return createMathExp();
       case MathPackage.VAR_BINDING: return createVarBinding();
       case MathPackage.EXPRESSION: return createExpression();
       case MathPackage.LET_BINDING: return createLetBinding();
@@ -91,10 +90,10 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
    * @generated
    */
   @Override
-  public Program createProgram()
+  public MathExp createMathExp()
   {
-    ProgramImpl program = new ProgramImpl();
-    return program;
+    MathExpImpl mathExp = new MathExpImpl();
+    return mathExp;
   }
 
   /**
@@ -119,18 +118,6 @@ public class MathFactoryImpl extends EFactoryImpl implements MathFactory
   {
     MethodImpl method = new MethodImpl();
     return method;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public MathExp createMathExp()
-  {
-    MathExpImpl mathExp = new MathExpImpl();
-    return mathExp;
   }
 
   /**

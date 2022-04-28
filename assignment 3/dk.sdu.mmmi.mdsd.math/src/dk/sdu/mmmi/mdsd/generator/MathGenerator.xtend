@@ -14,11 +14,13 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import dk.sdu.mmmi.mdsd.math.Program
 import dk.sdu.mmmi.mdsd.math.Expression
 import dk.sdu.mmmi.mdsd.math.Method
 import dk.sdu.mmmi.mdsd.math.Parenthesis
-import dk.sdu.mmmi.mdsd.math.External
+import dk.sdu.mmmi.mdsd.math.VarBinding
+import dk.sdu.mmmi.mdsd.math.LetBinding
+import java.util.HashMap
+import dk.sdu.mmmi.mdsd.math.MathExp
 
 /**
  * Generates code from your model files on save.
@@ -27,43 +29,94 @@ import dk.sdu.mmmi.mdsd.math.External
  */
 class MathGenerator extends AbstractGenerator {
 	
-	static Map<String, Integer> variables;
+	static Map<String, String> variables;
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		val program = resource.allContents.filter(Program).next
+		val program = resource.allContents.filter(MathExp).next
 		fsa.generateFile("math_expression/" + program.name + ".java", program.compile)
 	}
 		
-	def compile(Program program){
+	def compile(MathExp program){
+		variables = new HashMap()
+		for(varBinding: program.variables)
+			varBinding.computeExpression()
 		'''
 		package math_expression;
 		
 		public class «program.name» {
-			«FOR varBinding: program.mathExps.variables»
+			«FOR varBinding: program.variables»
 			public int «varBinding.name»;
 			«ENDFOR»
 			
 			public void compute() {
-				«FOR varBinding: program.mathExps.variables»
-				«varBinding.name» = «varBinding.expression.resolve»;
+				«FOR varBinding: program.variables»
+				«varBinding.name» = «varBinding.expression.computeExpression»;
 				«ENDFOR»
 			}
+			
+			«IF program.externals.size > 0»
+			private External external;
+			  
+			public «program.name»(External external) {
+				this.external = external;
+			}
+			public interface External {
+				«FOR func : program.externals»
+					int «func.name»(«IF func.args.size == 1»int n«ENDIF»«IF func.args.size == 2»int n, int m«ENDIF»);
+				«ENDFOR»
+			}
+			«ENDIF»
 		}
 		'''
 	}
 	
-	def String resolve(Expression expression){
-		var output = ""
-		switch (expression) {
-			MathNumber: output += expression.value
-			Parenthesis: output += '''( «expression.exp.resolve» )'''
-			VariableUse: output += expression.ref.name
-			Plus: output += '''«expression.left.resolve» + «expression.right.resolve»'''
-			Minus: output += '''«expression.left.resolve» - «expression.right.resolve»'''
-			Div: output += '''«expression.left.resolve» / «expression.right.resolve»'''
-			Mult: output += '''«expression.left.resolve» * «expression.right.resolve»'''
-		}
-		return output
+	def static dispatch String computeExpression(VarBinding binding) {
+		variables.put(binding.name, binding.expression.computeExpression())
+		return variables.get(binding.name)
+	}
+	
+	def static dispatch String computeExpression(MathNumber exp) {
+		exp.value.toString
+	}
+
+	def static dispatch String computeExpression(Plus exp) {
+		exp.left.computeExpression + ' + ' + exp.right.computeExpression
+	}
+	
+	def static dispatch String computeExpression(Minus exp) {
+		exp.left.computeExpression + ' - ' + exp.right.computeExpression
+	}
+	
+	def static dispatch String computeExpression(Mult exp) {
+		exp.left.computeExpression + ' * ' + exp.right.computeExpression
+	}
+	
+	def static dispatch String computeExpression(Div exp) {
+		exp.left.computeExpression + ' / ' + exp.right.computeExpression
+	}
+	
+	def static dispatch String computeExpression(Parenthesis exp) {
+		'(' + exp.exp.computeExpression + ')'
+	}
+
+	def static dispatch String computeExpression(LetBinding exp) {
+		exp.body.computeExpression
+	}
+	
+	def static dispatch String computeExpression(VariableUse exp) {
+		'(' + exp.ref.computeBinding + ')'
+	}
+
+	def static dispatch String computeBinding(VarBinding binding){
+		binding.name
+	}
+	
+	def static dispatch String computeBinding(LetBinding binding){
+		binding.binding.computeExpression
+	}
+
+	def static dispatch String computeExpression(Method exp){
+		'''this.external.'''+ exp.ref.name + '''(«FOR x : exp.exps SEPARATOR ', '» «x.computeExpression» «ENDFOR»)''' 
 	}
 	
 }

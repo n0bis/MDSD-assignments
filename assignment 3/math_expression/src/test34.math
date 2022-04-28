@@ -21,3 +21,5 @@ var perimeterCircle =
 	let diameter = 2 * radius in
 		diameter * pi()
 	end
+
+	

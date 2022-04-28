@@ -11,21 +11,20 @@ public class Test34 {
 	public void compute() {
 		sideA = 3;
 		sideB = 4;
-		sideC = ;
-		perimeterTriangle = sideA + sideB + sideC;
+		sideC = this.external.sqrt( (this.external.pow( (sideA),   2 )) + (this.external.pow( (sideB),   2 )) );
+		perimeterTriangle = (sideA) + (sideB) + (sideC);
 		radius = 5;
-		perimeterCircle = ;
+		perimeterCircle = (2 * (radius)) * this.external.pi();
 	}
 	
-	private External external;	
-	
-	public Test34(External external){
+	private External external;
+	  
+	public Test34(External external) {
 		this.external = external;
 	}
-	
-	interface External {		
-	public int pow («arg»,«arg);
-	public int sqrt («arg);
-	public int pi ();
+	public interface External {
+		int pow(int n, int m);
+		int sqrt(int n);
+		int pi();
 	}
 }

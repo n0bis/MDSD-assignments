@@ -5,17 +5,16 @@ public class Test29 {
 	public int y;
 	
 	public void compute() {
-		x = this.external.pow(4, 2);
-		y = x - 2;
+		x = this.external.pow( 4,   2 );
+		y = (x) - 2;
 	}
 	
-	private External external;	
-	
-	public Test29(External external){
+	private External external;
+	  
+	public Test29(External external) {
 		this.external = external;
 	}
-	
-	interface External {		
-	public int pow («arg»,«arg);
+	public interface External {
+		int pow(int n, int m);
 	}
 }

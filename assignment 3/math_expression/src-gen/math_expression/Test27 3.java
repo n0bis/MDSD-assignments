@@ -6,16 +6,15 @@ public class Test27 {
 	
 	public void compute() {
 		x = this.external.pi();
-		y = x + 2;
+		y = (x) + 2;
 	}
 	
-	private External external;	
-	
-	public Test27(External external){
+	private External external;
+	  
+	public Test27(External external) {
 		this.external = external;
 	}
-	
-	interface External {		
-	public int pi ();
+	public interface External {
+		int pi();
 	}
 }

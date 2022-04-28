@@ -24,13 +24,13 @@ public interface MathFactory extends EFactory
   MathFactory eINSTANCE = dk.sdu.mmmi.mdsd.math.impl.MathFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Program</em>'.
+   * Returns a new object of class '<em>Exp</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Program</em>'.
+   * @return a new object of class '<em>Exp</em>'.
    * @generated
    */
-  Program createProgram();
+  MathExp createMathExp();
 
   /**
    * Returns a new object of class '<em>External</em>'.
@@ -49,15 +49,6 @@ public interface MathFactory extends EFactory
    * @generated
    */
   Method createMethod();
-
-  /**
-   * Returns a new object of class '<em>Exp</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Exp</em>'.
-   * @generated
-   */
-  MathExp createMathExp();
 
   /**
    * Returns a new object of class '<em>Var Binding</em>'.
