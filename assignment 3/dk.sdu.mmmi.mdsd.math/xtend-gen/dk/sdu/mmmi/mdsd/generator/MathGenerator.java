@@ -18,8 +18,6 @@ import dk.sdu.mmmi.mdsd.math.Parenthesis;
 import dk.sdu.mmmi.mdsd.math.Plus;
 import dk.sdu.mmmi.mdsd.math.VarBinding;
 import dk.sdu.mmmi.mdsd.math.VariableUse;
-import java.util.HashMap;
-import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -34,8 +32,6 @@ import org.eclipse.xtext.generator.IGeneratorContext;
  */
 @SuppressWarnings("all")
 public class MathGenerator extends AbstractGenerator {
-  private static Map<String, String> variables;
-  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     final MathExp program = Iterators.<MathExp>filter(resource.getAllContents(), MathExp.class).next();
@@ -46,120 +42,110 @@ public class MathGenerator extends AbstractGenerator {
   }
   
   public CharSequence compile(final MathExp program) {
-    CharSequence _xblockexpression = null;
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package math_expression;");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public class ");
+    String _name = program.getName();
+    _builder.append(_name);
+    _builder.append(" {");
+    _builder.newLineIfNotEmpty();
     {
-      HashMap<String, String> _hashMap = new HashMap<String, String>();
-      MathGenerator.variables = _hashMap;
       EList<VarBinding> _variables = program.getVariables();
-      for (final VarBinding varBinding : _variables) {
-        MathGenerator.variables.put(varBinding.getName(), MathGenerator.computeExpression(varBinding.getExpression()));
+      for(final VarBinding varBinding : _variables) {
+        _builder.append("\t");
+        _builder.append("public int ");
+        String _name_1 = varBinding.getName();
+        _builder.append(_name_1, "\t");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
       }
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("package math_expression;");
-      _builder.newLine();
-      _builder.newLine();
-      _builder.append("public class ");
-      String _name = program.getName();
-      _builder.append(_name);
-      _builder.append(" {");
-      _builder.newLineIfNotEmpty();
-      {
-        EList<VarBinding> _variables_1 = program.getVariables();
-        for(final VarBinding varBinding_1 : _variables_1) {
-          _builder.append("\t");
-          _builder.append("public int ");
-          String _name_1 = varBinding_1.getName();
-          _builder.append(_name_1, "\t");
-          _builder.append(";");
-          _builder.newLineIfNotEmpty();
-        }
-      }
-      _builder.append("\t");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("public void compute() {");
-      _builder.newLine();
-      {
-        EList<VarBinding> _variables_2 = program.getVariables();
-        for(final VarBinding varBinding_2 : _variables_2) {
-          _builder.append("\t\t");
-          String _name_2 = varBinding_2.getName();
-          _builder.append(_name_2, "\t\t");
-          _builder.append(" = ");
-          String _computeExpression = MathGenerator.computeExpression(varBinding_2.getExpression());
-          _builder.append(_computeExpression, "\t\t");
-          _builder.append(";");
-          _builder.newLineIfNotEmpty();
-        }
-      }
-      _builder.append("\t");
-      _builder.append("}");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.newLine();
-      {
-        int _size = program.getExternals().size();
-        boolean _greaterThan = (_size > 0);
-        if (_greaterThan) {
-          _builder.append("\t");
-          _builder.append("private External external;");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("  ");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("public ");
-          String _name_3 = program.getName();
-          _builder.append(_name_3, "\t");
-          _builder.append("(External external) {");
-          _builder.newLineIfNotEmpty();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("this.external = external;");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("}");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("public interface External {");
-          _builder.newLine();
-          {
-            EList<External> _externals = program.getExternals();
-            for(final External func : _externals) {
-              _builder.append("\t");
-              _builder.append("\t");
-              _builder.append("int ");
-              String _name_4 = func.getName();
-              _builder.append(_name_4, "\t\t");
-              _builder.append("(");
-              {
-                int _size_1 = func.getArgs().size();
-                boolean _equals = (_size_1 == 1);
-                if (_equals) {
-                  _builder.append("int n");
-                }
-              }
-              {
-                int _size_2 = func.getArgs().size();
-                boolean _equals_1 = (_size_2 == 2);
-                if (_equals_1) {
-                  _builder.append("int n, int m");
-                }
-              }
-              _builder.append(");");
-              _builder.newLineIfNotEmpty();
-            }
-          }
-          _builder.append("\t");
-          _builder.append("}");
-          _builder.newLine();
-        }
-      }
-      _builder.append("}");
-      _builder.newLine();
-      _xblockexpression = _builder;
     }
-    return _xblockexpression;
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public void compute() {");
+    _builder.newLine();
+    {
+      EList<VarBinding> _variables_1 = program.getVariables();
+      for(final VarBinding varBinding_1 : _variables_1) {
+        _builder.append("\t\t");
+        String _name_2 = varBinding_1.getName();
+        _builder.append(_name_2, "\t\t");
+        _builder.append(" = ");
+        String _computeExpression = MathGenerator.computeExpression(varBinding_1.getExpression());
+        _builder.append(_computeExpression, "\t\t");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    {
+      int _size = program.getExternals().size();
+      boolean _greaterThan = (_size > 0);
+      if (_greaterThan) {
+        _builder.append("\t");
+        _builder.append("private External external;");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("  ");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("public ");
+        String _name_3 = program.getName();
+        _builder.append(_name_3, "\t");
+        _builder.append("(External external) {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("this.external = external;");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("public interface External {");
+        _builder.newLine();
+        {
+          EList<External> _externals = program.getExternals();
+          for(final External func : _externals) {
+            _builder.append("\t");
+            _builder.append("\t");
+            _builder.append("int ");
+            String _name_4 = func.getName();
+            _builder.append(_name_4, "\t\t");
+            _builder.append("(");
+            {
+              int _size_1 = func.getArgs().size();
+              boolean _equals = (_size_1 == 1);
+              if (_equals) {
+                _builder.append("int n");
+              }
+            }
+            {
+              int _size_2 = func.getArgs().size();
+              boolean _equals_1 = (_size_2 == 2);
+              if (_equals_1) {
+                _builder.append("int n, int m");
+              }
+            }
+            _builder.append(");");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+      }
+    }
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
   }
   
   protected static String _computeExpression(final Expression exp) {

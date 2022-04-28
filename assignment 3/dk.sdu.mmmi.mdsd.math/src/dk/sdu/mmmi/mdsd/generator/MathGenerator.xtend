@@ -29,8 +29,6 @@ import dk.sdu.mmmi.mdsd.math.Binding
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class MathGenerator extends AbstractGenerator {
-	
-	static Map<String, String> variables;
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val program = resource.allContents.filter(MathExp).next
@@ -38,9 +36,6 @@ class MathGenerator extends AbstractGenerator {
 	}
 		
 	def compile(MathExp program){
-		variables = new HashMap()
-		for(varBinding: program.variables)
-			variables.put(varBinding.name, varBinding.expression.computeExpression())
 
 		'''
 		package math_expression;
